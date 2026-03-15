@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Odyssey - NeoForge 1.21.1 Modpack</title>
+<meta name="description" content="Dynamic Odyssey: A massive NeoForge 1.21.1 modpack with 319 mods, 583 quests, 48 custom chicken breeds, and deep tech progression.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS RESET & VARIABLES ========== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-void: #08080f;
+  --bg-deep: #0d0d1a;
+  --bg-card: #111128;
+  --bg-card-hover: #181840;
+  --bg-glass: rgba(17, 17, 40, 0.7);
+
+  --accent-primary: #6c5ce7;
+  --accent-secondary: #00cec9;
+  --accent-warm: #fd79a8;
+  --accent-gold: #fdcb6e;
+  --accent-fire: #e17055;
+  --accent-neon: #a29bfe;
+  --accent-green: #00b894;
+
+  --text-primary: #e8e8f0;
+  --text-secondary: #a0a0c0;
+  --text-muted: #606080;
+
+  --glow-primary: 0 0 30px rgba(108, 92, 231, 0.3);
+  --glow-secondary: 0 0 30px rgba(0, 206, 201, 0.3);
+  --glow-warm: 0 0 30px rgba(253, 121, 168, 0.3);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --font-display: 'Orbitron', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-void);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ========== SCROLLBAR ========== */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-void); }
+::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 4px; }
+
+/* ========== ANIMATED BACKGROUND ========== */
+.bg-stars {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+.bg-stars::before, .bg-stars::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(108,92,231,0.4), transparent),
+    radial-gradient(1px 1px at 90px 40px, rgba(0,206,201,0.3), transparent),
+    radial-gradient(1px 1px at 130px 80px, rgba(253,121,168,0.2), transparent),
+    radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.2), transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: drift 60s linear infinite;
+}
+.bg-stars::after {
+  background-size: 300px 150px;
+  animation: drift 90s linear infinite reverse;
+  opacity: 0.5;
+}
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-50%, -50%); }
+}
+
+/* ========== NAVIGATION ========== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 0 2rem;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 8, 15, 0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(108, 92, 231, 0.2);
+  transition: all 0.3s ease;
+}
+nav.scrolled {
+  background: rgba(8, 8, 15, 0.95);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.nav-brand img {
+  height: 36px;
+  filter: drop-shadow(0 0 10px rgba(108, 92, 231, 0.5));
+}
+.nav-brand span {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover { color: var(--accent-secondary); }
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: var(--accent-secondary);
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after { width: 100%; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 5px;
+}
+.hamburger span {
+  width: 28px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* ========== HERO SECTION ========== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url('assets/background4.png') center/cover no-repeat;
+  filter: brightness(0.3) saturate(1.2);
+  z-index: 0;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(108, 92, 231, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(0, 206, 201, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, transparent 0%, rgba(8, 8, 15, 0.5) 70%, var(--bg-void) 100%);
+  z-index: 1;
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 2rem;
+}
+.hero-logo {
+  width: min(500px, 80vw);
+  margin-bottom: 2rem;
+  animation: floatIn 1.5s ease-out;
+  filter: drop-shadow(0 0 40px rgba(108, 92, 231, 0.4));
+}
+@keyframes floatIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.hero-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  animation: fadeUp 1.5s ease-out 0.3s both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-version {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: var(--bg-glass);
+  border: 1px solid rgba(108, 92, 231, 0.3);
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--accent-neon);
+  margin-bottom: 2.5rem;
+  animation: fadeUp 1.5s ease-out 0.5s both;
+}
+.hero-version .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-green);
+  box-shadow: 0 0 10px var(--accent-green);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+  animation: fadeUp 1.5s ease-out 0.7s both;
+}
+.hero-stat {
+  text-align: center;
+}
+.hero-stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-fire));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.hero-stat-label {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  animation: bob 2s ease-in-out infinite;
+}
+.scroll-indicator svg {
+  width: 28px;
+  height: 28px;
+  stroke: var(--text-muted);
+  stroke-width: 2;
+  fill: none;
+}
+@keyframes bob {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ========== SECTION STYLES ========== */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 2rem;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.section-eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent-secondary);
+  margin-bottom: 0.75rem;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--text-primary), var(--accent-neon));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+.section-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.divider {
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  margin: 1.5rem auto 0;
+  border-radius: 2px;
+}
+
+/* ========== ABOUT / PILLARS ========== */
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+.pillar-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+.pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: var(--card-accent, var(--accent-primary));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.pillar-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(108, 92, 231, 0.4);
+  box-shadow: var(--glow-primary);
+}
+.pillar-card:hover::before { opacity: 1; }
+.pillar-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.pillar-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: var(--text-primary);
+}
+.pillar-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ========== TECH TREE / PROGRESSION ========== */
+.tech-tree {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+.tech-branch {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.15);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.tech-branch:hover {
+  border-color: rgba(108, 92, 231, 0.4);
+  box-shadow: var(--glow-primary);
+}
+.tech-branch-header {
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, var(--branch-color, var(--accent-primary)) 0%, transparent 150%);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.tech-branch-icon { font-size: 2rem; }
+.tech-branch-name {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+.tech-branch-body { padding: 1.5rem 2rem; }
+.tech-mod {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+.tech-mod::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--branch-color, var(--accent-primary));
+  flex-shrink: 0;
+}
+
+/* ========== QUESTS SECTION ========== */
+.quests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+.quest-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.12);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.quest-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--quest-color, var(--accent-primary));
+  box-shadow: 0 0 20px rgba(108, 92, 231, 0.15);
+}
+.quest-card-count {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--quest-color, var(--accent-gold));
+  line-height: 1;
+}
+.quest-card-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  color: var(--text-primary);
+}
+.quest-card-group {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ========== CHICKENS SECTION ========== */
+.chickens-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  padding: 8px 20px;
+  border: 1px solid rgba(108, 92, 231, 0.3);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: white;
+  box-shadow: var(--glow-primary);
+}
+.chickens-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+.chicken-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.1);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+.chicken-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.chicken-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.chicken-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+.chicken-icon::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
+}
+.chicken-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.chicken-resource {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.chicken-parents {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+.chicken-parents svg {
+  width: 14px; height: 14px;
+  stroke: var(--accent-warm);
+  fill: none;
+  stroke-width: 2;
+  flex-shrink: 0;
+}
+.chicken-speed {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.speed-bar {
+  flex: 1;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.speed-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+.speed-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-display);
+  min-width: 30px;
+}
+
+/* ========== MOD LIST SECTION ========== */
+.mod-search {
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  position: relative;
+}
+.mod-search input {
+  width: 100%;
+  padding: 14px 24px 14px 50px;
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  border-radius: 100px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.mod-search input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: var(--glow-primary);
+}
+.mod-search input::placeholder { color: var(--text-muted); }
+.mod-search svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+}
+.mod-count {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+.mod-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.75rem;
+  max-height: 600px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+.mod-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.08);
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: var(--text-primary);
+}
+.mod-item:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(108, 92, 231, 0.3);
+  transform: translateX(4px);
+}
+.mod-side {
+  width: 4px;
+  height: 24px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.mod-side.both { background: var(--accent-primary); }
+.mod-side.client { background: var(--accent-secondary); }
+.mod-side.server { background: var(--accent-fire); }
+.mod-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== FEATURES SHOWCASE ========== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.feature-card:hover {
+  border-color: rgba(108, 92, 231, 0.4);
+  box-shadow: var(--glow-primary);
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--feat-color, var(--accent-primary)) 0%, transparent 70%);
+  opacity: 0.06;
+}
+.feature-emoji {
+  font-size: 2.5rem;
+  margin-bottom: 1.25rem;
+}
+.feature-title {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.feature-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.feature-tag {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-family: var(--font-display);
+  letter-spacing: 1px;
+  border: 1px solid var(--feat-color, var(--accent-primary));
+  color: var(--feat-color, var(--accent-primary));
+}
+
+/* ========== BREEDING CHAINS ========== */
+.chains-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+.chain-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+}
+.chain-title {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--accent-gold);
+}
+.chain-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.chain-step {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.chain-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  position: relative;
+}
+.chain-dot::after {
+  content: '';
+  position: absolute;
+  top: 12px; left: 5px;
+  width: 2px; height: calc(100% + 12px);
+  background: rgba(108, 92, 231, 0.2);
+}
+.chain-step:last-child .chain-dot::after { display: none; }
+.chain-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.chain-label strong { color: var(--text-primary); }
+.chain-arrow {
+  color: var(--text-muted);
+  margin: 0 4px;
+}
+
+/* ========== FOOTER ========== */
+footer {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 2rem 2rem;
+  border-top: 1px solid rgba(108, 92, 231, 0.1);
+  text-align: center;
+}
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.footer-authors {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.footer-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+.footer-links a:hover { color: var(--accent-secondary); }
+.footer-copy {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 768px) {
+  nav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px; left: 0; right: 0;
+    background: rgba(8, 8, 15, 0.98);
+    padding: 1.5rem;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(108, 92, 231, 0.2);
+  }
+  .hamburger { display: flex; }
+  .hero-stats { gap: 1.5rem; }
+  section { padding: 4rem 1rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .chains-container { grid-template-columns: 1fr; }
+}
+
+/* ========== ANIMATIONS ON SCROLL ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== PAGE TRANSITION INDICATORS ========== */
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.page-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(108, 92, 231, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+.page-dot:hover, .page-dot.active {
+  background: var(--accent-primary);
+  box-shadow: 0 0 10px var(--accent-primary);
+  transform: scale(1.3);
+}
+@media (max-width: 768px) {
+  .page-nav { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-stars"></div>
+
+<!-- ========== NAVIGATION ========== -->
+<nav id="navbar">
+  <a href="#hero" class="nav-brand">
+    <img src="assets/do.png" alt="DO">
+    <span>DYNAMIC ODYSSEY</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#tech">Tech Tree</a></li>
+    <li><a href="#quests">Quests</a></li>
+    <li><a href="#chickens">Chickens</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#mods">Mods</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Side dots -->
+<div class="page-nav" id="pageDots"></div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="assets/dynamicodyssey.png" alt="Dynamic Odyssey" class="hero-logo">
+    <p class="hero-tagline">NeoForge 1.21.1 &mdash; Built for Exploration, Engineering & Chaos</p>
+    <div class="hero-version">
+      <span class="dot"></span>
+      v2.11.8 &bull; MINECRAFT 1.21.1 &bull; NEOFORGE 21.1.219
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number" data-count="319">0</div>
+        <div class="hero-stat-label">Mods</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number" data-count="583">0</div>
+        <div class="hero-stat-label">Quests</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number" data-count="48">0</div>
+        <div class="hero-stat-label">Custom Chickens</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number" data-count="19">0</div>
+        <div class="hero-stat-label">Quest Chapters</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </div>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">What Is This</div>
+      <h2 class="section-title">Your Next 500 Hours</h2>
+      <p class="section-subtitle">A kitchen-sink modpack where tech, food, building, and exploration collide in beautiful chaos.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-primary)">
+        <span class="pillar-icon">&#9889;</span>
+        <h3 class="pillar-title">Deep Tech</h3>
+        <p class="pillar-desc">Create, Mekanism, Modern Industrialization, AE2, and Powah form interconnected tech progression from bronze age to nuclear fission.</p>
+      </div>
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-green)">
+        <span class="pillar-icon">&#127860;</span>
+        <h3 class="pillar-title">Culinary Empire</h3>
+        <p class="pillar-desc">Farmer's Delight, Croptopia, and the entire Let's Do series. Build vineyards, beach bars, breweries, and five-star kitchens.</p>
+      </div>
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-warm)">
+        <span class="pillar-icon">&#127981;</span>
+        <h3 class="pillar-title">Mega Building</h3>
+        <p class="pillar-desc">Macaw's full suite, Chipped, Rechiseled, Create Deco, and hundreds of decorative blocks. Every build can be a masterpiece.</p>
+      </div>
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-fire)">
+        <span class="pillar-icon">&#128506;</span>
+        <h3 class="pillar-title">World Exploration</h3>
+        <p class="pillar-desc">Regions Unexplored, Terralith, YUNG's overhauls, When Dungeons Arise, and Sky Villages. Every direction is an adventure.</p>
+      </div>
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-gold)">
+        <span class="pillar-icon">&#128038;</span>
+        <h3 class="pillar-title">Chicken Automation</h3>
+        <p class="pillar-desc">48 custom chicken breeds produce everything from tin dust to plutonium. Breed your way through the entire tech tree.</p>
+      </div>
+      <div class="pillar-card reveal" style="--card-accent: var(--accent-secondary)">
+        <span class="pillar-icon">&#128187;</span>
+        <h3 class="pillar-title">CC: Tweaked</h3>
+        <p class="pillar-desc">Advanced Peripherals and Tom's Peripherals let you program Lua computers that control your entire base. Automate everything.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TECH TREE ========== -->
+<section id="tech" style="background: linear-gradient(180deg, transparent, rgba(108, 92, 231, 0.03), transparent);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Progression</div>
+      <h2 class="section-title">The Tech Tree</h2>
+      <p class="section-subtitle">Six interconnected technology branches. Master one, or conquer them all.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="tech-tree">
+      <div class="tech-branch reveal" style="--branch-color: #e17055;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#9881;</span>
+          <span class="tech-branch-name">Create</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">Create Core + 11 Addons</div>
+          <div class="tech-mod">Steam 'n' Rails</div>
+          <div class="tech-mod">Bells & Whistles, Deco, Copycats+</div>
+          <div class="tech-mod">Enchantment Industry</div>
+          <div class="tech-mod">Central Kitchen + Slice & Dice</div>
+          <div class="tech-mod">Trading Floor</div>
+        </div>
+      </div>
+      <div class="tech-branch reveal" style="--branch-color: #00cec9;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#9762;</span>
+          <span class="tech-branch-name">Mekanism</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">Mekanism Core</div>
+          <div class="tech-mod">Generators (Fission, Fusion, Turbine)</div>
+          <div class="tech-mod">Additions (Obsidian Armor, Baby Mobs)</div>
+          <div class="tech-mod">Tools (Paxel, Atomic Disassembler)</div>
+          <div class="tech-mod">More Mekanism Processing</div>
+          <div class="tech-mod">Applied Mekanistics (AE2 bridge)</div>
+        </div>
+      </div>
+      <div class="tech-branch reveal" style="--branch-color: #fdcb6e;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#9935;</span>
+          <span class="tech-branch-name">Modern Industrialization</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">Bronze Age &rarr; Steel &rarr; Electric &rarr; Nuclear</div>
+          <div class="tech-mod">Modern Dynamics (pipes & cables)</div>
+          <div class="tech-mod">25+ custom chicken breeds for MI dusts</div>
+          <div class="tech-mod">Full ore processing chains</div>
+          <div class="tech-mod">Steam & electric multiblocks</div>
+        </div>
+      </div>
+      <div class="tech-branch reveal" style="--branch-color: #a29bfe;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#128268;</span>
+          <span class="tech-branch-name">Applied Energistics 2</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">AE2 Core + Wireless Terminals</div>
+          <div class="tech-mod">MEGA Cells + AE2 MEGA Things</div>
+          <div class="tech-mod">AdvancedAE + ExtendedAE</div>
+          <div class="tech-mod">ME Requester + Crafting Tree</div>
+          <div class="tech-mod">Applied Flux (Powah integration)</div>
+          <div class="tech-mod">Universal Inscriber Press (custom item)</div>
+        </div>
+      </div>
+      <div class="tech-branch reveal" style="--branch-color: #fd79a8;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#9889;</span>
+          <span class="tech-branch-name">Powah</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">Solar, Magmatic, Thermoelectric generators</div>
+          <div class="tech-mod">Ender Gates (wireless energy)</div>
+          <div class="tech-mod">Energized Steel progression</div>
+          <div class="tech-mod">Blazing, Niotic, Spirited crystals</div>
+          <div class="tech-mod">3 custom crystal chicken breeds</div>
+        </div>
+      </div>
+      <div class="tech-branch reveal" style="--branch-color: #00b894;">
+        <div class="tech-branch-header">
+          <span class="tech-branch-icon">&#128187;</span>
+          <span class="tech-branch-name">ComputerCraft</span>
+        </div>
+        <div class="tech-branch-body">
+          <div class="tech-mod">CC: Tweaked (Lua computers & turtles)</div>
+          <div class="tech-mod">Advanced Peripherals (97 quests!)</div>
+          <div class="tech-mod">Tom's Peripherals (Create bridge)</div>
+          <div class="tech-mod">CC:C Bridge (Create integration)</div>
+          <div class="tech-mod">Program your entire factory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== QUESTS ========== -->
+<section id="quests">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">583 Quests</div>
+      <h2 class="section-title">Quest Chapters</h2>
+      <p class="section-subtitle">Flexible progression &mdash; every chapter is unlocked from the start. Go anywhere, do anything.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="quests-grid" id="questsGrid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section id="features" style="background: linear-gradient(180deg, transparent, rgba(0, 206, 201, 0.02), transparent);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Unique to DO</div>
+      <h2 class="section-title">Custom Features</h2>
+      <p class="section-subtitle">Hand-crafted additions built with KubeJS to tie everything together.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal" style="--feat-color: var(--accent-neon);">
+        <div class="feature-emoji">&#128295;</div>
+        <h3 class="feature-title">Universal Inscriber Press</h3>
+        <p class="feature-desc">A custom Epic-rarity item that replaces all 5 AE2 processor presses. One press to rule them all. Crafted via KubeJS recipes, complete with custom texture.</p>
+        <span class="feature-tag">KUBEJS CUSTOM ITEM</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-gold);">
+        <div class="feature-emoji">&#128038;</div>
+        <h3 class="feature-title">48 Custom Chicken Breeds</h3>
+        <p class="feature-desc">Modern Chickens configured with breeds covering MI tiny dusts, Powah crystals, AE2 materials, and nuclear fuels. Breed chickens to automate your tech tree.</p>
+        <span class="feature-tag">RESOURCE AUTOMATION</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-warm);">
+        <div class="feature-emoji">&#127942;</div>
+        <h3 class="feature-title">11 Reward Tables</h3>
+        <p class="feature-desc">Hand-designed loot bags for every tech tier: Bronze Age kits, Mekanism starter packs, Nuclear loot, Create grab bags, and curated food collections.</p>
+        <span class="feature-tag">FTB QUESTS</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-green);">
+        <div class="feature-emoji">&#128300;</div>
+        <h3 class="feature-title">85-Point Test Suite</h3>
+        <p class="feature-desc">Automated pack validation runs 85 checks on every server boot: mod presence, item registry, recipe outputs, and cross-mod integration verification.</p>
+        <span class="feature-tag">QUALITY ASSURANCE</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-fire);">
+        <div class="feature-emoji">&#128302;</div>
+        <h3 class="feature-title">Cross-Mod Recipes</h3>
+        <p class="feature-desc">KubeJS recipes bridge gaps between mods: purple dye from multiple sources, grape seed fixes, EMI integration tweaks, and Croptopia compatibility patches.</p>
+        <span class="feature-tag">INTEGRATION</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-secondary);">
+        <div class="feature-emoji">&#127760;</div>
+        <h3 class="feature-title">Overhauled World</h3>
+        <p class="feature-desc">Terralith + Regions Unexplored biomes, 7 YUNG's structure overhauls, When Dungeons Arise, Sky Villages, and underground villages. Every chunk is interesting.</p>
+        <span class="feature-tag">WORLDGEN</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== CHICKENS ========== -->
+<section id="chickens">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Resource Automation</div>
+      <h2 class="section-title">Chicken Breeding Guide</h2>
+      <p class="section-subtitle">48 custom breeds across 5 speed tiers. Breed vanilla chickens into nuclear fuel producers.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="chickens-controls reveal">
+      <button class="filter-btn active" data-filter="all">All (48)</button>
+      <button class="filter-btn" data-filter="mi">Modern Industrialization</button>
+      <button class="filter-btn" data-filter="powah">Powah</button>
+      <button class="filter-btn" data-filter="ae2">AE2</button>
+      <button class="filter-btn" data-filter="other">Other</button>
+    </div>
+
+    <!-- Breeding chains -->
+    <div class="chains-container reveal" style="margin-bottom: 3rem;">
+      <div class="chain-card">
+        <div class="chain-title">Nuclear Fuel Chain</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #5C5C5C;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Flint</strong> <span class="chain-arrow">&rarr;</span> Lead</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #4D7326;"></div><span class="chain-label"><strong>Lead</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Uranium</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #3D6320;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> U-235</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5D8330;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Lead</strong> <span class="chain-arrow">&rarr;</span> U-238</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5D4E6D;"></div><span class="chain-label"><strong>U-235</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> Plutonium</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6D5E5D;"></div><span class="chain-label"><strong>Plutonium</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> LE MOX</span></div>
+        </div>
+      </div>
+      <div class="chain-card">
+        <div class="chain-title">Advanced Alloys Chain</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #808080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Coal</strong> <span class="chain-arrow">&rarr;</span> Steel</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #A0A080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Quartz</strong> <span class="chain-arrow">&rarr;</span> Nickel</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #808880;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Chromium</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0C0C0;"></div><span class="chain-label"><strong>Tin</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Aluminum</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #878681;"></div><span class="chain-label"><strong>Aluminum</strong> + <strong>Chromium</strong> <span class="chain-arrow">&rarr;</span> Titanium</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #E0E0E0;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Chromium</strong> <span class="chain-arrow">&rarr;</span> Stainless Steel</span></div>
+        </div>
+      </div>
+      <div class="chain-card">
+        <div class="chain-title">Energy Crystals Chain</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #FF6600;"></div><span class="chain-label"><strong>Gold</strong> + <strong>Glowstone</strong> <span class="chain-arrow">&rarr;</span> Blazing Crystal</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6666FF;"></div><span class="chain-label"><strong>Diamond</strong> + <strong>Lapis</strong> <span class="chain-arrow">&rarr;</span> Niotic Crystal</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #66FF66;"></div><span class="chain-label"><strong>Emerald</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> Spirited Crystal</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0A020;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Energized Steel</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #A0D0FF;"></div><span class="chain-label"><strong>Snowball</strong> + <strong>Lapis</strong> <span class="chain-arrow">&rarr;</span> Dry Ice</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5C3A1E;"></div><span class="chain-label"><strong>Diamond</strong> + <strong>Emerald</strong> <span class="chain-arrow">&rarr;</span> Ancient Debris</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chickens-grid reveal" id="chickensGrid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ========== MODS ========== -->
+<section id="mods" style="background: linear-gradient(180deg, transparent, rgba(253, 121, 168, 0.02), transparent);">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">The Arsenal</div>
+      <h2 class="section-title">All 319 Mods</h2>
+      <p class="section-subtitle">Every mod in the pack. Search, browse, click to visit CurseForge.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="mod-search reveal">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="modSearch" placeholder="Search mods...">
+    </div>
+    <div class="mod-count reveal" id="modCount">SHOWING 319 OF 319 MODS</div>
+    <div class="mod-grid reveal" id="modGrid">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer>
+  <div class="footer-brand">DYNAMIC ODYSSEY</div>
+  <p class="footer-authors">Created by <strong>Eutopic</strong> & <strong>Robbyfox</strong></p>
+  <div class="footer-links">
+    <a href="https://github.com/TargetedEntropy/do2">GitHub</a>
+    <a href="https://targetedentropy.github.io/modern-chickens-gitpages/">Chicken Breeding Guide</a>
+  </div>
+  <p class="footer-copy">NeoForge 1.21.1 &bull; v2.11.8 &bull; 319 Mods &bull; 583 Quests &bull; 48 Custom Chickens</p>
+</footer>
+
+<script>
+// ========== DATA ==========
+const QUESTS = [
+  { name: "Advanced Peripherals", count: 97, group: "Technology", color: "#00b894" },
+  { name: "Create", count: 84, group: "Technology", color: "#e17055" },
+  { name: "Mekanism", count: 84, group: "Technology", color: "#00cec9" },
+  { name: "Fine Dining", count: 72, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Trinkets", count: 50, group: "Collectables", color: "#fd79a8" },
+  { name: "Modern Industrialization", count: 44, group: "Technology", color: "#fdcb6e" },
+  { name: "Saplings", count: 36, group: "Collectables", color: "#00b894" },
+  { name: "Applied Energistics 2", count: 25, group: "Storage", color: "#a29bfe" },
+  { name: "Mob Heads & Spawn Eggs", count: 25, group: "Collectables", color: "#e17055" },
+  { name: "Tom's Simple Storage", count: 22, group: "Storage", color: "#6c5ce7" },
+  { name: "Spawner Manipulation", count: 18, group: "Quick Guides", color: "#636e72" },
+  { name: "Getting Started", count: 15, group: "Quick Guides", color: "#dfe6e9" },
+  { name: "Powah", count: 10, group: "Technology", color: "#fd79a8" },
+  { name: "Music Discs", count: 4, group: "Collectables", color: "#fdcb6e" },
+  { name: "Vines and Wines", count: 4, group: "Let's Do", color: "#6c5ce7" },
+  { name: "Cheesed", count: 2, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Margaritaville", count: 2, group: "Let's Do", color: "#00cec9" },
+  { name: "Oktoberfest", count: 2, group: "Let's Do", color: "#e17055" },
+  { name: "Red Bread Redemption", count: 2, group: "Let's Do", color: "#fd79a8" },
+];
+
+const CHICKENS = [
+  { name: "Tin", resource: "MI Tin Tiny Dust", parents: ["Iron", "Copper"], speed: 1.0, bg: "#B0B0B0", fg: "#D0D0D0", mod: "mi" },
+  { name: "Lead", resource: "MI Lead Tiny Dust", parents: ["Iron", "Flint"], speed: 1.0, bg: "#5C5C5C", fg: "#8A8A8A", mod: "mi" },
+  { name: "Nickel", resource: "MI Nickel Tiny Dust", parents: ["Iron", "Quartz"], speed: 1.0, bg: "#A0A080", fg: "#C0C0A0", mod: "mi" },
+  { name: "Steel", resource: "MI Steel Tiny Dust", parents: ["Iron", "Coal"], speed: 1.0, bg: "#808080", fg: "#A0A0A0", mod: "mi" },
+  { name: "Salt", resource: "Croptopia Salt", parents: ["Glowstone", "Quartz"], speed: 1.0, bg: "#FFFFFF", fg: "#E8E8E0", mod: "other" },
+  { name: "Bronze", resource: "MI Bronze Tiny Dust", parents: ["Copper", "Tin"], speed: 1.0, bg: "#CD7F32", fg: "#E8A862", mod: "mi" },
+  { name: "Sulfur", resource: "MI Sulfur Tiny Dust", parents: ["Coal", "Redstone"], speed: 1.0, bg: "#C8C820", fg: "#E0E060", mod: "mi" },
+  { name: "Lignite Coal", resource: "MI Lignite Coal Tiny Dust", parents: ["Coal", "Sand"], speed: 1.0, bg: "#605030", fg: "#806848", mod: "mi" },
+  { name: "Silicon", resource: "MI Silicon Tiny Dust", parents: ["Quartz", "Redstone"], speed: 1.0, bg: "#4A4A5A", fg: "#6A6A8A", mod: "mi" },
+  { name: "Antimony", resource: "MI Antimony Tiny Dust", parents: ["Lead", "Coal"], speed: 0.8, bg: "#6A6A70", fg: "#9A9AA0", mod: "mi" },
+  { name: "Certus Quartz Dust", resource: "AE2 Certus Quartz Dust", parents: ["Quartz", "Glowstone"], speed: 0.8, bg: "#C0C8D0", fg: "#E0E8F0", mod: "ae2" },
+  { name: "Aluminum", resource: "MI Aluminum Tiny Dust", parents: ["Tin", "Nickel"], speed: 0.8, bg: "#C0C0C0", fg: "#E0E0E0", mod: "mi" },
+  { name: "Electrum", resource: "MI Electrum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#FFD700", fg: "#FFF0A0", mod: "mi" },
+  { name: "Invar", resource: "MI Invar Tiny Dust", parents: ["Iron", "Nickel"], speed: 0.8, bg: "#909080", fg: "#B0B0A0", mod: "mi" },
+  { name: "Manganese", resource: "MI Manganese Tiny Dust", parents: ["Iron", "Steel"], speed: 0.8, bg: "#5A5060", fg: "#7A7080", mod: "mi" },
+  { name: "Chromium", resource: "MI Chromium Tiny Dust", parents: ["Steel", "Nickel"], speed: 0.8, bg: "#808880", fg: "#A0A8A0", mod: "mi" },
+  { name: "Cupronickel", resource: "MI Cupronickel Tiny Dust", parents: ["Copper", "Nickel"], speed: 0.8, bg: "#B89070", fg: "#D0A888", mod: "mi" },
+  { name: "Soldering Alloy", resource: "MI Soldering Alloy Tiny Dust", parents: ["Tin", "Lead"], speed: 0.8, bg: "#888890", fg: "#A8A8B0", mod: "mi" },
+  { name: "Monazite", resource: "MI Monazite Tiny Dust", parents: ["Lead", "Nickel"], speed: 0.8, bg: "#705030", fg: "#906848", mod: "mi" },
+  { name: "Yttrium", resource: "MI Yttrium Tiny Dust", parents: ["Monazite", "Quartz"], speed: 0.8, bg: "#808090", fg: "#A0A0B0", mod: "mi" },
+  { name: "Platinum", resource: "MI Platinum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#E5E4E2", fg: "#F5F5F0", mod: "mi" },
+  { name: "Uranium", resource: "MI Uranium Tiny Dust", parents: ["Lead", "Gold"], speed: 0.8, bg: "#4D7326", fg: "#6B9D3A", mod: "mi" },
+  { name: "Blazing Crystal", resource: "Powah Blazing Crystal", parents: ["Gold", "Glowstone"], speed: 0.8, bg: "#FF6600", fg: "#FFAA44", mod: "powah" },
+  { name: "Energized Steel", resource: "Powah Energized Steel", parents: ["Steel", "Gold"], speed: 0.8, bg: "#C0A020", fg: "#E0C040", mod: "powah" },
+  { name: "Dry Ice", resource: "Powah Dry Ice", parents: ["Snowball", "Lapis"], speed: 0.8, bg: "#A0D0FF", fg: "#D0E8FF", mod: "powah" },
+  { name: "Sodium", resource: "MI Sodium Tiny Dust", parents: ["Salt", "Redstone"], speed: 0.8, bg: "#D0D0D0", fg: "#F0F0F0", mod: "mi" },
+  { name: "Bauxite", resource: "MI Bauxite Tiny Dust", parents: ["Aluminum", "Iron"], speed: 0.8, bg: "#A05030", fg: "#C07050", mod: "mi" },
+  { name: "Fluix Dust", resource: "AE2 Fluix Dust", parents: ["Certus Quartz Dust", "Redstone"], speed: 0.8, bg: "#6030A0", fg: "#9060D0", mod: "ae2" },
+  { name: "Salt Dust", resource: "MI Salt Dust", parents: ["Salt", "Coal"], speed: 0.8, bg: "#E8E8D0", fg: "#F0F0E0", mod: "mi" },
+  { name: "Salt Tiny Dust", resource: "MI Salt Tiny Dust", parents: ["Salt", "Sand"], speed: 0.8, bg: "#E0E0C8", fg: "#F0F0E0", mod: "mi" },
+  { name: "Stainless Steel", resource: "MI Stainless Steel Tiny Dust", parents: ["Steel", "Chromium"], speed: 0.6, bg: "#E0E0E0", fg: "#F0F0F0", mod: "mi" },
+  { name: "Titanium", resource: "MI Titanium Tiny Dust", parents: ["Aluminum", "Chromium"], speed: 0.6, bg: "#878681", fg: "#A8A8A0", mod: "mi" },
+  { name: "Tungsten", resource: "MI Tungsten Tiny Dust", parents: ["Steel", "Titanium"], speed: 0.6, bg: "#4A4A4A", fg: "#707070", mod: "mi" },
+  { name: "Iridium", resource: "MI Iridium Tiny Dust", parents: ["Platinum", "Titanium"], speed: 0.5, bg: "#E0E0F0", fg: "#F0F0FF", mod: "mi" },
+  { name: "Kanthal", resource: "MI Kanthal Tiny Dust", parents: ["Chromium", "Aluminum"], speed: 0.6, bg: "#909890", fg: "#B0B8B0", mod: "mi" },
+  { name: "Battery Alloy", resource: "MI Battery Alloy Tiny Dust", parents: ["Lead", "Antimony"], speed: 0.6, bg: "#606870", fg: "#808890", mod: "mi" },
+  { name: "Neodymium", resource: "MI Neodymium Tiny Dust", parents: ["Monazite", "Yttrium"], speed: 0.6, bg: "#708088", fg: "#90A0A8", mod: "mi" },
+  { name: "Beryllium", resource: "MI Beryllium Tiny Dust", parents: ["Emerald", "Aluminum"], speed: 0.6, bg: "#80A080", fg: "#A0C0A0", mod: "mi" },
+  { name: "Cadmium", resource: "MI Cadmium Tiny Dust", parents: ["Lead", "Tin"], speed: 0.6, bg: "#606060", fg: "#888888", mod: "mi" },
+  { name: "Niotic Crystal", resource: "Powah Niotic Crystal", parents: ["Diamond", "Lapis"], speed: 0.6, bg: "#6666FF", fg: "#AAAAFF", mod: "powah" },
+  { name: "Spirited Crystal", resource: "Powah Spirited Crystal", parents: ["Emerald", "Diamond"], speed: 0.6, bg: "#66FF66", fg: "#AAFFAA", mod: "powah" },
+  { name: "Uranium-235", resource: "MI U-235 Tiny Dust", parents: ["Uranium", "Diamond"], speed: 0.5, bg: "#3D6320", fg: "#5B8D2A", mod: "mi" },
+  { name: "Uranium-238", resource: "MI U-238 Tiny Dust", parents: ["Uranium", "Lead"], speed: 0.5, bg: "#5D8330", fg: "#7BA34A", mod: "mi" },
+  { name: "Plutonium", resource: "MI Plutonium Tiny Dust", parents: ["U-235", "U-238"], speed: 0.5, bg: "#5D4E6D", fg: "#7D6E8D", mod: "mi" },
+  { name: "LE MOX", resource: "MI LE MOX Tiny Dust", parents: ["Plutonium", "U-238"], speed: 0.5, bg: "#6D5E5D", fg: "#8D7E7D", mod: "mi" },
+  { name: "HE MOX", resource: "MI HE MOX Tiny Dust", parents: ["Plutonium", "U-235"], speed: 0.5, bg: "#7D5E4D", fg: "#9D7E6D", mod: "mi" },
+  { name: "LE Uranium", resource: "MI LE Uranium Tiny Dust", parents: ["Uranium", "U-238"], speed: 0.5, bg: "#4D6336", fg: "#6B8D4A", mod: "mi" },
+  { name: "Ancient Debris", resource: "Minecraft Ancient Debris", parents: ["Diamond", "Emerald"], speed: 0.4, bg: "#5C3A1E", fg: "#7C5A3E", mod: "other" },
+];
+
+const MODS = [
+  { name: "[Let's Do] API", side: "both" },
+  { name: "[Let's Do] Beachparty", side: "both" },
+  { name: "[Let's Do] Meadow", side: "both" },
+  { name: "[Let's Do] Vinery", side: "both" },
+  { name: "Advanced Netherite", side: "both" },
+  { name: "Advanced Peripherals", side: "both" },
+  { name: "AdvancedAE", side: "both" },
+  { name: "AE2 MEGA Things", side: "both" },
+  { name: "AE2 Network Analyser", side: "both" },
+  { name: "AE2 QoL Recipes", side: "both" },
+  { name: "AE2 Things", side: "both" },
+  { name: "AE2: Crafting Tree", side: "both" },
+  { name: "Almost Unified", side: "both" },
+  { name: "Ambient Environment", side: "both" },
+  { name: "AmbientSounds 6", side: "both" },
+  { name: "Amendments", side: "both" },
+  { name: "Animal Feeding Trough", side: "both" },
+  { name: "AppleSkin", side: "both" },
+  { name: "Applied Energistics 2", side: "both" },
+  { name: "AE2 Wireless Terminals", side: "both" },
+  { name: "Applied Flux", side: "both" },
+  { name: "Applied Mekanistics", side: "both" },
+  { name: "Architectury API", side: "both" },
+  { name: "Artifacts", side: "both" },
+  { name: "Athena", side: "both" },
+  { name: "Auth Me", side: "both" },
+  { name: "Bad Packets", side: "both" },
+  { name: "Bad Wither No Cookie", side: "client" },
+  { name: "Balm", side: "both" },
+  { name: "Better Compatibility Checker", side: "both" },
+  { name: "Better Than Mending", side: "both" },
+  { name: "BetterF3", side: "both" },
+  { name: "Bookshelf", side: "both" },
+  { name: "Bouncier Beds", side: "both" },
+  { name: "Brutal Bosses", side: "both" },
+  { name: "Building Gadgets", side: "both" },
+  { name: "Building Wands", side: "both" },
+  { name: "Caelus API", side: "both" },
+  { name: "Carry On", side: "both" },
+  { name: "Catalogue", side: "both" },
+  { name: "CC: Tweaked", side: "both" },
+  { name: "CC:C Bridge", side: "both" },
+  { name: "Chef's Delight", side: "both" },
+  { name: "Chipped", side: "both" },
+  { name: "Chisels & Bits", side: "both" },
+  { name: "ChoiceTheorem's Overhauled Village", side: "both" },
+  { name: "Chunk Loaders", side: "both" },
+  { name: "Clean Tooltips", side: "both" },
+  { name: "Client Crafting", side: "both" },
+  { name: "Cloth Config API", side: "both" },
+  { name: "Clumps", side: "both" },
+  { name: "Cluttered", side: "both" },
+  { name: "Collective", side: "both" },
+  { name: "Comforts", side: "both" },
+  { name: "Common Network", side: "both" },
+  { name: "Connected Glass", side: "both" },
+  { name: "Controlling", side: "both" },
+  { name: "Cooking for Blockheads", side: "both" },
+  { name: "Coxinha Utilities", side: "both" },
+  { name: "Crawl", side: "both" },
+  { name: "Create", side: "both" },
+  { name: "Create Cafe", side: "both" },
+  { name: "Create Confectionery", side: "both" },
+  { name: "Create Contraption Terminals", side: "both" },
+  { name: "Create Crafts & Additions", side: "both" },
+  { name: "Create Deco", side: "both" },
+  { name: "Create Slice & Dice", side: "both" },
+  { name: "Create Stock Bridge", side: "both" },
+  { name: "Create Structures Arise", side: "both" },
+  { name: "Create: Bells & Whistles", side: "both" },
+  { name: "Create: Central Kitchen", side: "both" },
+  { name: "Create: Copycats+", side: "both" },
+  { name: "Create: Dragons Plus", side: "both" },
+  { name: "Create: Enchantment Industry", side: "both" },
+  { name: "Create: Garnished", side: "both" },
+  { name: "Create: Recipe Conflict Fixer", side: "both" },
+  { name: "Create: Trading Floor", side: "both" },
+  { name: "CreativeCore", side: "both" },
+  { name: "Creeper Overhaul", side: "both" },
+  { name: "Croptopia", side: "both" },
+  { name: "Curios API", side: "both" },
+  { name: "Dank Storage", side: "both" },
+  { name: "Dark Utilities", side: "both" },
+  { name: "Deeper and Darker", side: "both" },
+  { name: "Dis-Enchanting Table", side: "both" },
+  { name: "Double Doors", side: "both" },
+  { name: "Easy Auto Cycler", side: "client" },
+  { name: "Easy Mob Farm", side: "both" },
+  { name: "Easy Villagers", side: "both" },
+  { name: "Eating Animation", side: "both" },
+  { name: "Elytra Slot", side: "both" },
+  { name: "EMI", side: "both" },
+  { name: "EMI Enchanting", side: "both" },
+  { name: "EMI Extra Integrations", side: "both" },
+  { name: "EMI Loot", side: "both" },
+  { name: "EMI Ores", side: "both" },
+  { name: "EMI: Create Schematics", side: "both" },
+  { name: "EMIffect", side: "both" },
+  { name: "EMI Let's Do Compat", side: "client" },
+  { name: "Enchanting Infuser", side: "both" },
+  { name: "Enchantment Descriptions", side: "both" },
+  { name: "End's Delight", side: "both" },
+  { name: "End's Phantasm", side: "both" },
+  { name: "Enderman Overhaul", side: "both" },
+  { name: "Enhanced Workbenches", side: "both" },
+  { name: "Entangled", side: "both" },
+  { name: "Every Compat (Stone Zone)", side: "both" },
+  { name: "Every Compat (Wood Good)", side: "both" },
+  { name: "Excessive Building", side: "both" },
+  { name: "Explorer's Compass", side: "both" },
+  { name: "ExtendedAE", side: "both" },
+  { name: "FancyMenu", side: "both" },
+  { name: "Farmer's Delight", side: "both" },
+  { name: "Farmer's Knives", side: "both" },
+  { name: "Farming for Blockheads", side: "both" },
+  { name: "FerriteCore", side: "both" },
+  { name: "Fish of Thieves", side: "both" },
+  { name: "Fix GPU Memory Leak", side: "both" },
+  { name: "Forgified Fabric API", side: "both" },
+  { name: "Friends&Foes", side: "both" },
+  { name: "Flowery Mooblooms", side: "both" },
+  { name: "FTB Chunks", side: "both" },
+  { name: "FTB Essentials", side: "both" },
+  { name: "FTB Filter System", side: "both" },
+  { name: "FTB Library", side: "both" },
+  { name: "FTB Quests", side: "both" },
+  { name: "FTB Ranks", side: "both" },
+  { name: "FTB Teams", side: "both" },
+  { name: "FTB Ultimine", side: "both" },
+  { name: "FTB XMod Compat", side: "both" },
+  { name: "Fusion (Connected Textures)", side: "both" },
+  { name: "Gadgets Against Grind", side: "both" },
+  { name: "GeckoLib", side: "both" },
+  { name: "Grind Enchantments", side: "both" },
+  { name: "GuideME", side: "both" },
+  { name: "Icarus", side: "both" },
+  { name: "ImmediatelyFast", side: "both" },
+  { name: "Iris Shaders", side: "both" },
+  { name: "Item Obliterator", side: "both" },
+  { name: "Jade Addons", side: "both" },
+  { name: "Jade", side: "both" },
+  { name: "JourneyMap", side: "both" },
+  { name: "JourneyMap Integration", side: "both" },
+  { name: "Just Dire Things", side: "both" },
+  { name: "Just Enough Items (JEI)", side: "client" },
+  { name: "Kibe Utilities", side: "both" },
+  { name: "Konkrete", side: "both" },
+  { name: "Kotlin for Forge", side: "both" },
+  { name: "KubeJS", side: "both" },
+  { name: "KubeJS Create", side: "both" },
+  { name: "Labelling Containers", side: "both" },
+  { name: "Leaves Be Gone", side: "both" },
+  { name: "Legendary Tooltips", side: "both" },
+  { name: "Light Overlay", side: "both" },
+  { name: "Lithium", side: "both" },
+  { name: "Load My Tags", side: "both" },
+  { name: "Loot Integrations", side: "both" },
+  { name: "Loot Integrations: CTOV", side: "server" },
+  { name: "Loot Integrations: Structory", side: "server" },
+  { name: "Loot Integrations: WDA", side: "server" },
+  { name: "LootJS", side: "both" },
+  { name: "Lootr", side: "both" },
+  { name: "Macaw's Bridges", side: "both" },
+  { name: "Macaw's Doors", side: "both" },
+  { name: "Macaw's Fences and Walls", side: "both" },
+  { name: "Macaw's Furniture", side: "both" },
+  { name: "Macaw's Lights and Lamps", side: "both" },
+  { name: "Macaw's Paintings", side: "both" },
+  { name: "Macaw's Paths and Pavings", side: "both" },
+  { name: "Macaw's Roofs", side: "both" },
+  { name: "Macaw's Trapdoors", side: "both" },
+  { name: "Macaw's Windows", side: "both" },
+  { name: "Max Health Fix", side: "both" },
+  { name: "ME Requester", side: "both" },
+  { name: "MEGA Cells", side: "both" },
+  { name: "MekaJadeUpgrades", side: "both" },
+  { name: "Mekanism", side: "both" },
+  { name: "Mekanism Additions", side: "both" },
+  { name: "Mekanism Generators", side: "both" },
+  { name: "Mekanism Tools", side: "both" },
+  { name: "Melody", side: "both" },
+  { name: "Moog's End Structures", side: "both" },
+  { name: "MmmMmmMmm (Target Dummy)", side: "both" },
+  { name: "Mo Glass", side: "both" },
+  { name: "Modern Chickens", side: "both" },
+  { name: "Modern Dynamics", side: "both" },
+  { name: "Modern Industrialization", side: "both" },
+  { name: "ModernFix", side: "both" },
+  { name: "Modonomicon", side: "both" },
+  { name: "Moog's Soaring Structures", side: "both" },
+  { name: "Moonlight Lib", side: "both" },
+  { name: "More Beautiful Doors", side: "both" },
+  { name: "More Beautiful Fences", side: "both" },
+  { name: "More Beautiful Pressure Plates", side: "both" },
+  { name: "More Beautiful Slabs", side: "both" },
+  { name: "More Beautiful Stairs", side: "both" },
+  { name: "More Beautiful Trapdoors", side: "both" },
+  { name: "More Beautiful Walls", side: "both" },
+  { name: "More Buttons", side: "both" },
+  { name: "More Carpets", side: "both" },
+  { name: "More Mekanism Processing", side: "both" },
+  { name: "More Relics", side: "both" },
+  { name: "More Villagers", side: "both" },
+  { name: "Mouse Tweaks", side: "both" },
+  { name: "Nature's Compass", side: "both" },
+  { name: "Neruina", side: "both" },
+  { name: "Nether Chested", side: "both" },
+  { name: "Night Lights", side: "both" },
+  { name: "No Chat Reports", side: "both" },
+  { name: "Not Enough Animations", side: "client" },
+  { name: "Nyctography", side: "both" },
+  { name: "Observable", side: "both" },
+  { name: "Ocean's Delight", side: "both" },
+  { name: "Open Loader", side: "both" },
+  { name: "owo-lib", side: "both" },
+  { name: "Packet Fixer", side: "both" },
+  { name: "Patchouli", side: "both" },
+  { name: "Pehkui", side: "both" },
+  { name: "Permanent Sponges", side: "both" },
+  { name: "Pet Names", side: "both" },
+  { name: "Pick Up Notifier", side: "both" },
+  { name: "Placebo", side: "both" },
+  { name: "Polymorph", side: "both" },
+  { name: "Polymorphic Energistics", side: "both" },
+  { name: "Powah!", side: "both" },
+  { name: "Prefab", side: "both" },
+  { name: "Prism", side: "both" },
+  { name: "Puzzles Lib", side: "both" },
+  { name: "Rechiseled", side: "both" },
+  { name: "Rechiseled: Chipped", side: "both" },
+  { name: "Rechiseled: Create", side: "both" },
+  { name: "Regions Unexplored", side: "both" },
+  { name: "Relics", side: "both" },
+  { name: "Repurposed Structures", side: "both" },
+  { name: "Retraining", side: "both" },
+  { name: "Rhino", side: "both" },
+  { name: "Savage Ender Dragon", side: "both" },
+  { name: "Schematic Energistics", side: "both" },
+  { name: "Sky Villages", side: "both" },
+  { name: "Smarter Farmers", side: "both" },
+  { name: "Sodium", side: "both" },
+  { name: "Sophisticated Backpacks", side: "both" },
+  { name: "Sophisticated Core", side: "both" },
+  { name: "Sophisticated Storage", side: "both" },
+  { name: "Spark", side: "both" },
+  { name: "Starter Kit", side: "both" },
+  { name: "Steam 'n' Rails", side: "both" },
+  { name: "Structory", side: "both" },
+  { name: "Structory: Towers", side: "both" },
+  { name: "Tank Storage", side: "both" },
+  { name: "Tempad", side: "both" },
+  { name: "TerraBlender", side: "both" },
+  { name: "Terralith", side: "both" },
+  { name: "Tesseract", side: "both" },
+  { name: "TheObsidianBoat", side: "both" },
+  { name: "Tom's Peripherals", side: "both" },
+  { name: "Tom's Simple Storage", side: "both" },
+  { name: "Trading Post", side: "both" },
+  { name: "Transmog", side: "both" },
+  { name: "Trash Cans", side: "both" },
+  { name: "Traveler's Backpack", side: "both" },
+  { name: "Traveler's Compass", side: "both" },
+  { name: "Underground Villages", side: "both" },
+  { name: "Utilitarian", side: "both" },
+  { name: "Villager Hats", side: "both" },
+  { name: "Waystones", side: "both" },
+  { name: "When Dungeons Arise", side: "both" },
+  { name: "When Dungeons Arise - Seven Seas", side: "both" },
+  { name: "Wormhole (Portals)", side: "both" },
+  { name: "XPlus Autofish", side: "client" },
+  { name: "Xtra Arrows", side: "both" },
+  { name: "YetAnotherConfigLib", side: "both" },
+  { name: "You're in Grave Danger", side: "both" },
+  { name: "YUNG's API", side: "both" },
+  { name: "YUNG's Better Desert Temples", side: "both" },
+  { name: "YUNG's Better Dungeons", side: "both" },
+  { name: "YUNG's Better End Island", side: "both" },
+  { name: "YUNG's Better Jungle Temples", side: "both" },
+  { name: "YUNG's Better Ocean Monuments", side: "both" },
+  { name: "YUNG's Better Strongholds", side: "both" },
+];
+
+// ========== RENDER QUESTS ==========
+const questsGrid = document.getElementById('questsGrid');
+QUESTS.forEach(q => {
+  const card = document.createElement('div');
+  card.className = 'quest-card reveal';
+  card.style.setProperty('--quest-color', q.color);
+  card.innerHTML = `
+    <div class="quest-card-count">${q.count}</div>
+    <div class="quest-card-name">${q.name}</div>
+    <div class="quest-card-group">${q.group}</div>
+  `;
+  questsGrid.appendChild(card);
+});
+
+// ========== RENDER CHICKENS ==========
+const chickensGrid = document.getElementById('chickensGrid');
+function renderChickens(filter) {
+  chickensGrid.innerHTML = '';
+  const filtered = filter === 'all' ? CHICKENS : CHICKENS.filter(c => c.mod === filter);
+  filtered.forEach(c => {
+    const speedPercent = c.speed * 100;
+    const speedColor = c.speed >= 1.0 ? '#00b894' : c.speed >= 0.8 ? '#fdcb6e' : c.speed >= 0.6 ? '#e17055' : '#fd79a8';
+    const card = document.createElement('div');
+    card.className = 'chicken-card';
+    card.innerHTML = `
+      <div class="chicken-header">
+        <div class="chicken-icon" style="background: linear-gradient(135deg, ${c.bg}, ${c.fg});">&#128038;</div>
+        <div>
+          <div class="chicken-name">${c.name} Chicken</div>
+          <div class="chicken-resource">${c.resource}</div>
+        </div>
+      </div>
+      <div class="chicken-parents">
+        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        ${c.parents.join(' + ')}
+      </div>
+      <div class="chicken-speed">
+        <div class="speed-bar"><div class="speed-fill" style="width: ${speedPercent}%; background: ${speedColor};"></div></div>
+        <span class="speed-label">${c.speed}x</span>
+      </div>
+    `;
+    chickensGrid.appendChild(card);
+  });
+}
+renderChickens('all');
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderChickens(btn.dataset.filter);
+  });
+});
+
+// ========== RENDER MODS ==========
+const modGrid = document.getElementById('modGrid');
+const modCount = document.getElementById('modCount');
+const modSearch = document.getElementById('modSearch');
+
+function renderMods(query = '') {
+  const filtered = query
+    ? MODS.filter(m => m.name.toLowerCase().includes(query.toLowerCase()))
+    : MODS;
+  modGrid.innerHTML = '';
+  filtered.sort((a, b) => a.name.localeCompare(b.name)).forEach(m => {
+    const item = document.createElement('div');
+    item.className = 'mod-item';
+    item.innerHTML = `
+      <div class="mod-side ${m.side}"></div>
+      <span class="mod-name">${m.name}</span>
+    `;
+    modGrid.appendChild(item);
+  });
+  modCount.textContent = `SHOWING ${filtered.length} OF ${MODS.length} MODS`;
+}
+renderMods();
+modSearch.addEventListener('input', e => renderMods(e.target.value));
+
+// ========== SCROLL REVEAL ==========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ========== NAVBAR SCROLL ==========
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ========== HAMBURGER ==========
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// ========== COUNT UP ANIMATION ==========
+const countElements = document.querySelectorAll('[data-count]');
+const countObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      let current = 0;
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current);
+      }, 16);
+      countObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+countElements.forEach(el => countObserver.observe(el));
+
+// ========== PAGE DOTS ==========
+const sections = ['hero', 'about', 'tech', 'quests', 'features', 'chickens', 'mods'];
+const pageDots = document.getElementById('pageDots');
+sections.forEach(id => {
+  const dot = document.createElement('button');
+  dot.className = 'page-dot';
+  dot.dataset.section = id;
+  dot.addEventListener('click', () => {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+  });
+  pageDots.appendChild(dot);
+});
+
+const dotObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      document.querySelectorAll('.page-dot').forEach(d => d.classList.remove('active'));
+      const dot = document.querySelector(`.page-dot[data-section="${entry.target.id}"]`);
+      if (dot) dot.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) dotObserver.observe(el);
+});
+</script>
+</body>
+</html>
