@@ -1172,8 +1172,77 @@ footer {
       <div class="feature-card reveal" style="--feat-color: var(--accent-secondary);">
         <div class="feature-emoji">&#127760;</div>
         <h3 class="feature-title">Overhauled World</h3>
-        <p class="feature-desc">Terralith + Regions Unexplored biomes, 7 YUNG's structure overhauls, When Dungeons Arise, Sky Villages, and underground villages. Every chunk is interesting.</p>
+        <p class="feature-desc">Terralith + William Wythers' Overhauled Overworld biomes, 7 YUNG's structure overhauls, When Dungeons Arise, Sky Villages, and underground villages. Every chunk is interesting.</p>
         <span class="feature-tag">WORLDGEN</span>
+      </div>
+      <div class="feature-card reveal" style="--feat-color: var(--accent-fire);">
+        <div class="feature-emoji">&#9876;</div>
+        <h3 class="feature-title">Gateway Challenges</h3>
+        <p class="feature-desc">7 custom Gateways to Eternity combat arenas with mod-specific loot. Fight through waves of mobs to earn Create mechanisms, Mekanism alloys, AE2 processors, and more.</p>
+        <span class="feature-tag">COMBAT</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== GATEWAYS ========== -->
+<section id="gateways">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Combat Challenges</div>
+      <h2 class="section-title">Gateway Challenges</h2>
+      <p class="section-subtitle">7 custom wave-based combat arenas tied to mod progression. Survive the horde, earn the loot.</p>
+      <div class="divider"></div>
+    </div>
+    <div class="chains-container reveal" style="margin-bottom: 2rem;">
+      <div class="chain-card" style="--feat-color: #7DBE3B;">
+        <div class="chain-title">Farmer's Trial &mdash; 5 Waves &mdash; Easy</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Husks, Strays, Spiders &rarr; <strong>Farmer's Delight &amp; Croptopia seeds</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: FD food feast</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #CD7F32;">
+        <div class="chain-title">Bronze Age Gauntlet &mdash; 6 Waves &mdash; Easy-Med</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Armored Zombies, Cave Spiders, Wither Skeleton boss &rarr; <strong>MI bronze, steel, forge hammer</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: Full MI bronze toolkit</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #FF6600;">
+        <div class="chain-title">Kinetic Crucible &mdash; 7 Waves &mdash; Medium</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Blazes, Piglins, Hoglins, "The Forge Master" boss &rarr; <strong>Create brass, precision mechanisms, blaze burners</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: 4x Precision Mechanisms + Blaze Burner</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #4DE94C;">
+        <div class="chain-title">Nuclear Option &mdash; 8 Waves &mdash; Hard</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Endermen, Phantoms, Evokers, Ravagers, "Nuclear Colossus" boss &rarr; <strong>Mekanism alloys, antimatter, teleportation cores</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: Atomic alloys + Teleportation Cores</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #8C5CD4;">
+        <div class="chain-title">Digital Onslaught &mdash; 8 Waves &mdash; Hard</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Shulkers, Guardians, Endermen, Warden boss &rarr; <strong>AE2 processors, fluix, Universal Press</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: 64k cells + Spatial Cell</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #1A0033;">
+        <div class="chain-title">Void Convergence &mdash; 10 Waves &mdash; Brutal</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Multiple Wardens, Elder Guardians, Ravagers, "Void Herald" boss &rarr; <strong>Ancient debris, nether stars, advanced netherite</strong></span></div>
+          <div class="chain-step"><span class="chain-label">Completion: Nether Star + Advanced Netherite</span></div>
+        </div>
+      </div>
+      <div class="chain-card" style="--feat-color: #FFFF00;">
+        <div class="chain-title">Chicken Apocalypse &mdash; Endless &mdash; Scales to Impossible</div>
+        <div class="chain-steps">
+          <div class="chain-step"><span class="chain-label">Infinite waves of increasingly buffed chickens (+speed, +health, +knockback, +damage)</span></div>
+          <div class="chain-step"><span class="chain-label">How many waves can you survive?</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -1393,6 +1462,7 @@ const MODS = [
   { name: "Amendments", side: "both" },
   { name: "Animal Feeding Trough", side: "both" },
   { name: "AppleSkin", side: "both" },
+  { name: "Apothic Attributes", side: "both" },
   { name: "Apothic Spawners", side: "both" },
   { name: "Biolith", side: "both" },
   { name: "Applied Energistics 2", side: "both" },
@@ -1513,6 +1583,7 @@ const MODS = [
   { name: "FTB XMod Compat", side: "both" },
   { name: "Fusion (Connected Textures)", side: "both" },
   { name: "Gadgets Against Grind", side: "both" },
+  { name: "Gateways to Eternity", side: "both" },
   { name: "GeckoLib", side: "both" },
   { name: "Grind Enchantments", side: "both" },
   { name: "GuideME", side: "both" },
@@ -1657,6 +1728,7 @@ const MODS = [
   { name: "WATERMeDIA", side: "both" },
   { name: "WATERViSION", side: "both" },
   { name: "Waystones", side: "both" },
+  { name: "William Wythers' Overhauled Overworld", side: "both" },
   { name: "When Dungeons Arise", side: "both" },
   { name: "When Dungeons Arise - Seven Seas", side: "both" },
   { name: "Wormhole (Portals)", side: "both" },
