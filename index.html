@@ -607,6 +607,115 @@ section {
   min-width: 30px;
 }
 
+/* ========== CHICKEN TIER BADGES & EXTRAS ========== */
+.chicken-search {
+  max-width: 500px;
+  margin: 0 auto 1.5rem;
+  position: relative;
+}
+.chicken-search input {
+  width: 100%;
+  padding: 14px 24px 14px 50px;
+  background: var(--bg-card);
+  border: 1px solid rgba(108, 92, 231, 0.2);
+  border-radius: 100px;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+.chicken-search input:focus {
+  border-color: var(--accent-primary);
+  box-shadow: var(--glow-primary);
+}
+.chicken-search input::placeholder { color: var(--text-muted); }
+.chicken-search svg {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px; height: 20px;
+  stroke: var(--text-muted);
+  fill: none;
+  stroke-width: 2;
+}
+.chicken-count {
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+}
+.tier-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.tier-btn {
+  padding: 5px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.tier-btn[data-tier="all"] { color: var(--text-secondary); }
+.tier-btn[data-tier="0"]  { color: #00b894; border-color: rgba(0,184,148,0.3); }
+.tier-btn[data-tier="1"]  { color: #00cec9; border-color: rgba(0,206,201,0.3); }
+.tier-btn[data-tier="2"]  { color: #fdcb6e; border-color: rgba(253,203,110,0.3); }
+.tier-btn[data-tier="3"]  { color: #e17055; border-color: rgba(225,112,85,0.3); }
+.tier-btn[data-tier="4"]  { color: #d63031; border-color: rgba(214,48,49,0.3); }
+.tier-btn[data-tier="5"]  { color: #fd79a8; border-color: rgba(253,121,168,0.3); }
+.tier-btn[data-tier="6"]  { color: #a29bfe; border-color: rgba(162,155,254,0.3); }
+.tier-btn:hover, .tier-btn.active {
+  filter: brightness(1.3);
+  box-shadow: 0 0 12px currentColor;
+  background: rgba(255,255,255,0.05);
+}
+.chicken-tier-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-right: 4px;
+}
+.tier-badge-0  { background: rgba(0,184,148,0.2);   color: #00b894; }
+.tier-badge-1  { background: rgba(0,206,201,0.2);   color: #00cec9; }
+.tier-badge-2  { background: rgba(253,203,110,0.2); color: #fdcb6e; }
+.tier-badge-3  { background: rgba(225,112,85,0.2);  color: #e17055; }
+.tier-badge-4  { background: rgba(214,48,49,0.2);   color: #d63031; }
+.tier-badge-5  { background: rgba(253,121,168,0.2); color: #fd79a8; }
+.tier-badge-6  { background: rgba(162,155,254,0.2); color: #a29bfe; }
+.chicken-spawn-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+.spawn-overworld { background: rgba(0,184,148,0.15); color: #00b894; }
+.spawn-nether    { background: rgba(225,112,85,0.15); color: #e17055; }
+.spawn-end       { background: rgba(162,155,254,0.15); color: #a29bfe; }
+.chicken-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
 /* ========== MOD LIST SECTION ========== */
 .mod-search {
   max-width: 500px;
@@ -1254,76 +1363,134 @@ footer {
     <div class="section-header reveal">
       <div class="section-eyebrow">Resource Automation</div>
       <h2 class="section-title">Chicken Breeding Guide</h2>
-      <p class="section-subtitle">48 custom breeds across 5 speed tiers. Breed vanilla chickens into nuclear fuel producers.</p>
+      <p class="section-subtitle">137 breeds across 7 tiers. Breed vanilla chickens into nuclear fuel producers, AE2 crystals, and advanced alloys.</p>
       <div class="divider"></div>
     </div>
+
+    <!-- Search -->
+    <div class="chicken-search reveal">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="chickenSearch" placeholder="Search by name or resource...">
+    </div>
+
+    <!-- Mod category filters -->
     <div class="chickens-controls reveal">
-      <button class="filter-btn active" data-filter="all">All (48)</button>
+      <button class="filter-btn active" data-filter="all">All (137)</button>
+      <button class="filter-btn" data-filter="natural">Natural Spawns</button>
+      <button class="filter-btn" data-filter="dye">Dyes</button>
+      <button class="filter-btn" data-filter="vanilla">Vanilla</button>
       <button class="filter-btn" data-filter="mi">Modern Industrialization</button>
-      <button class="filter-btn" data-filter="powah">Powah</button>
       <button class="filter-btn" data-filter="ae2">AE2</button>
+      <button class="filter-btn" data-filter="powah">Powah</button>
+      <button class="filter-btn" data-filter="nether">Nether</button>
+      <button class="filter-btn" data-filter="end">End</button>
       <button class="filter-btn" data-filter="other">Other</button>
     </div>
+
+    <!-- Tier filters -->
+    <div class="tier-filters reveal">
+      <button class="tier-btn active" data-tier="all">All Tiers</button>
+      <button class="tier-btn" data-tier="0">T0</button>
+      <button class="tier-btn" data-tier="1">T1</button>
+      <button class="tier-btn" data-tier="2">T2</button>
+      <button class="tier-btn" data-tier="3">T3</button>
+      <button class="tier-btn" data-tier="4">T4</button>
+      <button class="tier-btn" data-tier="5">T5</button>
+      <button class="tier-btn" data-tier="6">T6</button>
+    </div>
+
+    <div class="chicken-count reveal" id="chickenCount">SHOWING 137 OF 137 BREEDS</div>
 
     <!-- Natural Spawns -->
     <div class="chains-container reveal" style="margin-bottom: 3rem;">
       <div class="chain-card" style="--feat-color: var(--accent-green);">
         <div class="chain-title">Natural Spawns &mdash; Overworld</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #6b6b47;"></div><span class="chain-label"><strong>Flint Chicken</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #98846d;"></div><span class="chain-label"><strong>Log Chicken</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #ece5b1;"></div><span class="chain-label"><strong>Sand Chicken</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #f2f2f2;"></div><span class="chain-label"><strong>White Chicken</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #F0F0F0;"></div><span class="chain-label"><strong>White</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna (drops Bone)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #555555;"></div><span class="chain-label"><strong>Flint</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6B4226;"></div><span class="chain-label"><strong>Log</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna (drops Oak Log)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C2B280;"></div><span class="chain-label"><strong>Sand</strong> &mdash; Plains, Forest, Taiga, Jungle, Savanna</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #E8E8FF;"></div><span class="chain-label"><strong>Snowball</strong> &mdash; Ice Plains, Cold Taiga, Extreme Hills</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #3366CC;"></div><span class="chain-label"><strong>Water</strong> &mdash; Rivers, Ocean (drops Liquid Egg)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #CCCC00;"></div><span class="chain-label"><strong>Yellow / Red / Green / Black</strong> &mdash; Dye chickens spawn in warm biomes</span></div>
         </div>
       </div>
       <div class="chain-card" style="--feat-color: var(--accent-fire);">
         <div class="chain-title">Natural Spawns &mdash; Nether</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #4d0000;"></div><span class="chain-label"><strong>Quartz Chicken</strong> &mdash; All Nether biomes</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #cc3300;"></div><span class="chain-label"><strong>Lava Chicken</strong> &mdash; All Nether biomes</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #D4C8B0;"></div><span class="chain-label"><strong>Quartz</strong> &mdash; All Nether biomes</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #CC3300;"></div><span class="chain-label"><strong>Lava</strong> &mdash; All Nether biomes (drops Liquid Egg)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5A4832;"></div><span class="chain-label"><strong>Soul Sand</strong> &mdash; Soul Sand Valley</span></div>
         </div>
       </div>
-      <div class="chain-card" style="--feat-color: var(--accent-secondary);">
-        <div class="chain-title">Natural Spawns &mdash; Cold Biomes</div>
+      <div class="chain-card" style="--feat-color: var(--accent-neon);">
+        <div class="chain-title">Natural Spawns &mdash; The End</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #33bbff;"></div><span class="chain-label"><strong>Snowball Chicken</strong> &mdash; Ice Plains, Cold Taiga, Extreme Hills</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #0A4A4A;"></div><span class="chain-label"><strong>Ender</strong> &mdash; End Islands (drops Ender Pearl)</span></div>
         </div>
       </div>
     </div>
 
-    <!-- Breeding chains -->
+    <!-- Key breeding chains -->
     <div class="chains-container reveal" style="margin-bottom: 3rem;">
+      <div class="chain-card">
+        <div class="chain-title">Iron Foundation &mdash; Gateway to Everything</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #555555;"></div><span class="chain-label"><strong>Flint</strong> (spawn) + <strong>White</strong> (spawn) <span class="chain-arrow">&rarr;</span> Iron (T1)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0C0C0;"></div><span class="chain-label"><strong>Iron</strong> unlocks all MI dust chains, Nickel, Steel, Lead...</span></div>
+        </div>
+      </div>
       <div class="chain-card">
         <div class="chain-title">Nuclear Fuel Chain</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #5C5C5C;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Flint</strong> <span class="chain-arrow">&rarr;</span> Lead</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #4D7326;"></div><span class="chain-label"><strong>Lead</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Uranium</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #3D6320;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> U-235</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #5D8330;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Lead</strong> <span class="chain-arrow">&rarr;</span> U-238</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #5D4E6D;"></div><span class="chain-label"><strong>U-235</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> Plutonium</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #6D5E5D;"></div><span class="chain-label"><strong>Plutonium</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> LE MOX</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5C5C5C;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Flint</strong> <span class="chain-arrow">&rarr;</span> Lead (T2)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #4D7326;"></div><span class="chain-label"><strong>Lead</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Uranium (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #3D6320;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> Uranium-235 (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5D8330;"></div><span class="chain-label"><strong>Uranium</strong> + <strong>Lead</strong> <span class="chain-arrow">&rarr;</span> Uranium-238 (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5D4E6D;"></div><span class="chain-label"><strong>U-235</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> Plutonium (T5)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6D5E5D;"></div><span class="chain-label"><strong>Plutonium</strong> + <strong>U-238</strong> <span class="chain-arrow">&rarr;</span> LE MOX (T6)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #7D5E4D;"></div><span class="chain-label"><strong>Plutonium</strong> + <strong>U-235</strong> <span class="chain-arrow">&rarr;</span> HE MOX (T6)</span></div>
         </div>
       </div>
       <div class="chain-card">
         <div class="chain-title">Advanced Alloys Chain</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #808080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Coal</strong> <span class="chain-arrow">&rarr;</span> Steel</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #A0A080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Quartz</strong> <span class="chain-arrow">&rarr;</span> Nickel</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #808880;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Chromium</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #C0C0C0;"></div><span class="chain-label"><strong>Tin</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Aluminum</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #878681;"></div><span class="chain-label"><strong>Aluminum</strong> + <strong>Chromium</strong> <span class="chain-arrow">&rarr;</span> Titanium</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #E0E0E0;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Chromium</strong> <span class="chain-arrow">&rarr;</span> Stainless Steel</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #808080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Coal</strong> <span class="chain-arrow">&rarr;</span> Steel (T2)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #A0A080;"></div><span class="chain-label"><strong>Iron</strong> + <strong>Quartz</strong> <span class="chain-arrow">&rarr;</span> Nickel (T2)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #808880;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Chromium (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0C0C0;"></div><span class="chain-label"><strong>Tin</strong> + <strong>Nickel</strong> <span class="chain-arrow">&rarr;</span> Aluminum (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #878681;"></div><span class="chain-label"><strong>Aluminum</strong> + <strong>Chromium</strong> <span class="chain-arrow">&rarr;</span> Titanium (T5)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #4A4A4A;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Titanium</strong> <span class="chain-arrow">&rarr;</span> Tungsten (T6)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #E0E0F0;"></div><span class="chain-label"><strong>Platinum</strong> + <strong>Titanium</strong> <span class="chain-arrow">&rarr;</span> Iridium (T6)</span></div>
         </div>
       </div>
       <div class="chain-card">
-        <div class="chain-title">Energy Crystals Chain</div>
+        <div class="chain-title">Powah Crystals Chain</div>
         <div class="chain-steps">
-          <div class="chain-step"><div class="chain-dot" style="background: #FF6600;"></div><span class="chain-label"><strong>Gold</strong> + <strong>Glowstone</strong> <span class="chain-arrow">&rarr;</span> Blazing Crystal</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #6666FF;"></div><span class="chain-label"><strong>Diamond</strong> + <strong>Lapis</strong> <span class="chain-arrow">&rarr;</span> Niotic Crystal</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #66FF66;"></div><span class="chain-label"><strong>Emerald</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> Spirited Crystal</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #C0A020;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Energized Steel</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #A0D0FF;"></div><span class="chain-label"><strong>Snowball</strong> + <strong>Lapis</strong> <span class="chain-arrow">&rarr;</span> Dry Ice</span></div>
-          <div class="chain-step"><div class="chain-dot" style="background: #5C3A1E;"></div><span class="chain-label"><strong>Diamond</strong> + <strong>Emerald</strong> <span class="chain-arrow">&rarr;</span> Ancient Debris</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #FF6600;"></div><span class="chain-label"><strong>Gold</strong> + <strong>Glowstone</strong> <span class="chain-arrow">&rarr;</span> Blazing Crystal (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6666FF;"></div><span class="chain-label"><strong>Diamond</strong> + <strong>Blue</strong> <span class="chain-arrow">&rarr;</span> Niotic Crystal (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #66FF66;"></div><span class="chain-label"><strong>Emerald</strong> + <strong>Diamond</strong> <span class="chain-arrow">&rarr;</span> Spirited Crystal (T5)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0A020;"></div><span class="chain-label"><strong>Steel</strong> + <strong>Gold</strong> <span class="chain-arrow">&rarr;</span> Energized Steel (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #A0D0FF;"></div><span class="chain-label"><strong>Snowball</strong> + <strong>Blue</strong> <span class="chain-arrow">&rarr;</span> Dry Ice (T2)</span></div>
+        </div>
+      </div>
+      <div class="chain-card">
+        <div class="chain-title">AE2 Processing Chain</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #C0C8D0;"></div><span class="chain-label"><strong>Quartz</strong> + <strong>Glowstone</strong> <span class="chain-arrow">&rarr;</span> Certus Quartz Dust (T2)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #C0C8D0;"></div><span class="chain-label"><strong>Quartz</strong> + <strong>Glass</strong> <span class="chain-arrow">&rarr;</span> Certus Quartz Crystal (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #D0D8E0;"></div><span class="chain-label"><strong>Certus Quartz</strong> + <strong>Redstone</strong> <span class="chain-arrow">&rarr;</span> Charged Certus (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #6030A0;"></div><span class="chain-label"><strong>Certus Quartz</strong> + <strong>Glowstone</strong> <span class="chain-arrow">&rarr;</span> AE2 Fluix (T4)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #4A2880;"></div><span class="chain-label"><strong>AE2 Fluix</strong> + <strong>Certus Quartz</strong> <span class="chain-arrow">&rarr;</span> Entro (T5)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #2A5880;"></div><span class="chain-label"><strong>AE2 Fluix</strong> + <strong>Entro</strong> <span class="chain-arrow">&rarr;</span> Quantum Alloy (T6)</span></div>
+        </div>
+      </div>
+      <div class="chain-card">
+        <div class="chain-title">Nether Gateway Chain</div>
+        <div class="chain-steps">
+          <div class="chain-step"><div class="chain-dot" style="background: #CC6600;"></div><span class="chain-label"><strong>Gold</strong> + <strong>Lava</strong> <span class="chain-arrow">&rarr;</span> Blaze (T3)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #1A1A1A;"></div><span class="chain-label"><strong>Soul Sand</strong> + <strong>Blaze</strong> <span class="chain-arrow">&rarr;</span> Wither (T4 &mdash; drops Nether Star)</span></div>
+          <div class="chain-step"><div class="chain-dot" style="background: #5C3A1E;"></div><span class="chain-label"><strong>Wither</strong> + <strong>Blaze</strong> <span class="chain-arrow">&rarr;</span> Netherite (T5 &mdash; drops Ancient Debris)</span></div>
         </div>
       </div>
     </div>
@@ -1390,54 +1557,150 @@ const QUESTS = [
 ];
 
 const CHICKENS = [
-  { name: "Tin", resource: "MI Tin Tiny Dust", parents: ["Iron", "Copper"], speed: 1.0, bg: "#B0B0B0", fg: "#D0D0D0", mod: "mi" },
-  { name: "Lead", resource: "MI Lead Tiny Dust", parents: ["Iron", "Flint"], speed: 1.0, bg: "#5C5C5C", fg: "#8A8A8A", mod: "mi" },
-  { name: "Nickel", resource: "MI Nickel Tiny Dust", parents: ["Iron", "Quartz"], speed: 1.0, bg: "#A0A080", fg: "#C0C0A0", mod: "mi" },
-  { name: "Steel", resource: "MI Steel Tiny Dust", parents: ["Iron", "Coal"], speed: 1.0, bg: "#808080", fg: "#A0A0A0", mod: "mi" },
-  { name: "Salt", resource: "Croptopia Salt", parents: ["Glowstone", "Quartz"], speed: 1.0, bg: "#FFFFFF", fg: "#E8E8E0", mod: "other" },
-  { name: "Bronze", resource: "MI Bronze Tiny Dust", parents: ["Copper", "Tin"], speed: 1.0, bg: "#CD7F32", fg: "#E8A862", mod: "mi" },
-  { name: "Sulfur", resource: "MI Sulfur Tiny Dust", parents: ["Coal", "Redstone"], speed: 1.0, bg: "#C8C820", fg: "#E0E060", mod: "mi" },
-  { name: "Lignite Coal", resource: "MI Lignite Coal Tiny Dust", parents: ["Coal", "Sand"], speed: 1.0, bg: "#605030", fg: "#806848", mod: "mi" },
-  { name: "Silicon", resource: "MI Silicon Tiny Dust", parents: ["Quartz", "Redstone"], speed: 1.0, bg: "#4A4A5A", fg: "#6A6A8A", mod: "mi" },
-  { name: "Antimony", resource: "MI Antimony Tiny Dust", parents: ["Lead", "Coal"], speed: 0.8, bg: "#6A6A70", fg: "#9A9AA0", mod: "mi" },
-  { name: "Certus Quartz Dust", resource: "AE2 Certus Quartz Dust", parents: ["Quartz", "Glowstone"], speed: 0.8, bg: "#C0C8D0", fg: "#E0E8F0", mod: "ae2" },
-  { name: "Aluminum", resource: "MI Aluminum Tiny Dust", parents: ["Tin", "Nickel"], speed: 0.8, bg: "#C0C0C0", fg: "#E0E0E0", mod: "mi" },
-  { name: "Electrum", resource: "MI Electrum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#FFD700", fg: "#FFF0A0", mod: "mi" },
-  { name: "Invar", resource: "MI Invar Tiny Dust", parents: ["Iron", "Nickel"], speed: 0.8, bg: "#909080", fg: "#B0B0A0", mod: "mi" },
-  { name: "Manganese", resource: "MI Manganese Tiny Dust", parents: ["Iron", "Steel"], speed: 0.8, bg: "#5A5060", fg: "#7A7080", mod: "mi" },
-  { name: "Chromium", resource: "MI Chromium Tiny Dust", parents: ["Steel", "Nickel"], speed: 0.8, bg: "#808880", fg: "#A0A8A0", mod: "mi" },
-  { name: "Cupronickel", resource: "MI Cupronickel Tiny Dust", parents: ["Copper", "Nickel"], speed: 0.8, bg: "#B89070", fg: "#D0A888", mod: "mi" },
-  { name: "Soldering Alloy", resource: "MI Soldering Alloy Tiny Dust", parents: ["Tin", "Lead"], speed: 0.8, bg: "#888890", fg: "#A8A8B0", mod: "mi" },
-  { name: "Monazite", resource: "MI Monazite Tiny Dust", parents: ["Lead", "Nickel"], speed: 0.8, bg: "#705030", fg: "#906848", mod: "mi" },
-  { name: "Yttrium", resource: "MI Yttrium Tiny Dust", parents: ["Monazite", "Quartz"], speed: 0.8, bg: "#808090", fg: "#A0A0B0", mod: "mi" },
-  { name: "Platinum", resource: "MI Platinum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#E5E4E2", fg: "#F5F5F0", mod: "mi" },
-  { name: "Uranium", resource: "MI Uranium Tiny Dust", parents: ["Lead", "Gold"], speed: 0.8, bg: "#4D7326", fg: "#6B9D3A", mod: "mi" },
-  { name: "Blazing Crystal", resource: "Powah Blazing Crystal", parents: ["Gold", "Glowstone"], speed: 0.8, bg: "#FF6600", fg: "#FFAA44", mod: "powah" },
-  { name: "Energized Steel", resource: "Powah Energized Steel", parents: ["Steel", "Gold"], speed: 0.8, bg: "#C0A020", fg: "#E0C040", mod: "powah" },
-  { name: "Dry Ice", resource: "Powah Dry Ice", parents: ["Snowball", "Lapis"], speed: 0.8, bg: "#A0D0FF", fg: "#D0E8FF", mod: "powah" },
-  { name: "Sodium", resource: "MI Sodium Tiny Dust", parents: ["Salt", "Redstone"], speed: 0.8, bg: "#D0D0D0", fg: "#F0F0F0", mod: "mi" },
-  { name: "Bauxite", resource: "MI Bauxite Tiny Dust", parents: ["Aluminum", "Iron"], speed: 0.8, bg: "#A05030", fg: "#C07050", mod: "mi" },
-  { name: "Fluix Dust", resource: "AE2 Fluix Dust", parents: ["Certus Quartz Dust", "Redstone"], speed: 0.8, bg: "#6030A0", fg: "#9060D0", mod: "ae2" },
-  { name: "Salt Dust", resource: "MI Salt Dust", parents: ["Salt", "Coal"], speed: 0.8, bg: "#E8E8D0", fg: "#F0F0E0", mod: "mi" },
-  { name: "Salt Tiny Dust", resource: "MI Salt Tiny Dust", parents: ["Salt", "Sand"], speed: 0.8, bg: "#E0E0C8", fg: "#F0F0E0", mod: "mi" },
-  { name: "Stainless Steel", resource: "MI Stainless Steel Tiny Dust", parents: ["Steel", "Chromium"], speed: 0.6, bg: "#E0E0E0", fg: "#F0F0F0", mod: "mi" },
-  { name: "Titanium", resource: "MI Titanium Tiny Dust", parents: ["Aluminum", "Chromium"], speed: 0.6, bg: "#878681", fg: "#A8A8A0", mod: "mi" },
-  { name: "Tungsten", resource: "MI Tungsten Tiny Dust", parents: ["Steel", "Titanium"], speed: 0.6, bg: "#4A4A4A", fg: "#707070", mod: "mi" },
-  { name: "Iridium", resource: "MI Iridium Tiny Dust", parents: ["Platinum", "Titanium"], speed: 0.5, bg: "#E0E0F0", fg: "#F0F0FF", mod: "mi" },
-  { name: "Kanthal", resource: "MI Kanthal Tiny Dust", parents: ["Chromium", "Aluminum"], speed: 0.6, bg: "#909890", fg: "#B0B8B0", mod: "mi" },
-  { name: "Battery Alloy", resource: "MI Battery Alloy Tiny Dust", parents: ["Lead", "Antimony"], speed: 0.6, bg: "#606870", fg: "#808890", mod: "mi" },
-  { name: "Neodymium", resource: "MI Neodymium Tiny Dust", parents: ["Monazite", "Yttrium"], speed: 0.6, bg: "#708088", fg: "#90A0A8", mod: "mi" },
-  { name: "Beryllium", resource: "MI Beryllium Tiny Dust", parents: ["Emerald", "Aluminum"], speed: 0.6, bg: "#80A080", fg: "#A0C0A0", mod: "mi" },
-  { name: "Cadmium", resource: "MI Cadmium Tiny Dust", parents: ["Lead", "Tin"], speed: 0.6, bg: "#606060", fg: "#888888", mod: "mi" },
-  { name: "Niotic Crystal", resource: "Powah Niotic Crystal", parents: ["Diamond", "Lapis"], speed: 0.6, bg: "#6666FF", fg: "#AAAAFF", mod: "powah" },
-  { name: "Spirited Crystal", resource: "Powah Spirited Crystal", parents: ["Emerald", "Diamond"], speed: 0.6, bg: "#66FF66", fg: "#AAFFAA", mod: "powah" },
-  { name: "Uranium-235", resource: "MI U-235 Tiny Dust", parents: ["Uranium", "Diamond"], speed: 0.5, bg: "#3D6320", fg: "#5B8D2A", mod: "mi" },
-  { name: "Uranium-238", resource: "MI U-238 Tiny Dust", parents: ["Uranium", "Lead"], speed: 0.5, bg: "#5D8330", fg: "#7BA34A", mod: "mi" },
-  { name: "Plutonium", resource: "MI Plutonium Tiny Dust", parents: ["U-235", "U-238"], speed: 0.5, bg: "#5D4E6D", fg: "#7D6E8D", mod: "mi" },
-  { name: "LE MOX", resource: "MI LE MOX Tiny Dust", parents: ["Plutonium", "U-238"], speed: 0.5, bg: "#6D5E5D", fg: "#8D7E7D", mod: "mi" },
-  { name: "HE MOX", resource: "MI HE MOX Tiny Dust", parents: ["Plutonium", "U-235"], speed: 0.5, bg: "#7D5E4D", fg: "#9D7E6D", mod: "mi" },
-  { name: "LE Uranium", resource: "MI LE Uranium Tiny Dust", parents: ["Uranium", "U-238"], speed: 0.5, bg: "#4D6336", fg: "#6B8D4A", mod: "mi" },
-  { name: "Ancient Debris", resource: "Minecraft Ancient Debris", parents: ["Diamond", "Emerald"], speed: 0.4, bg: "#5C3A1E", fg: "#7C5A3E", mod: "other" },
+  // TIER 0 - Natural Spawns
+  { name: "White", resource: "Bone", parents: [], speed: 1.0, bg: "#F0F0F0", fg: "#FFFFFF", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Yellow", resource: "Yellow Dye", parents: [], speed: 1.0, bg: "#CCCC00", fg: "#FFFF44", mod: "dye", tier: 0, spawn: "overworld" },
+  { name: "Green", resource: "Green Dye", parents: [], speed: 1.0, bg: "#006600", fg: "#00AA00", mod: "dye", tier: 0, spawn: "overworld" },
+  { name: "Red", resource: "Red Dye", parents: [], speed: 1.0, bg: "#CC0000", fg: "#FF4444", mod: "dye", tier: 0, spawn: "overworld" },
+  { name: "Black", resource: "Ink Sac", parents: [], speed: 1.0, bg: "#1A1A1A", fg: "#444444", mod: "dye", tier: 0, spawn: "overworld" },
+  { name: "Flint", resource: "Flint", parents: [], speed: 1.0, bg: "#555555", fg: "#888888", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Snowball", resource: "Snowball", parents: [], speed: 1.0, bg: "#E8E8FF", fg: "#FFFFFF", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Sand", resource: "Sand", parents: [], speed: 1.0, bg: "#C2B280", fg: "#DED4A8", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Log", resource: "Oak Log", parents: [], speed: 1.0, bg: "#6B4226", fg: "#8B6B3E", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Water", resource: "Liquid Egg (Water)", parents: [], speed: 1.0, bg: "#3366CC", fg: "#66AAFF", mod: "vanilla", tier: 0, spawn: "overworld" },
+  { name: "Quartz", resource: "Quartz", parents: [], speed: 1.0, bg: "#D4C8B0", fg: "#EDE0CC", mod: "vanilla", tier: 0, spawn: "nether" },
+  { name: "Soul Sand", resource: "Soul Sand", parents: [], speed: 1.0, bg: "#5A4832", fg: "#7A6852", mod: "nether", tier: 0, spawn: "nether" },
+  { name: "Lava", resource: "Liquid Egg (Lava)", parents: [], speed: 1.0, bg: "#CC3300", fg: "#FF6633", mod: "nether", tier: 0, spawn: "nether" },
+  { name: "Ender", resource: "Ender Pearl", parents: [], speed: 1.0, bg: "#0A4A4A", fg: "#1A8A6A", mod: "end", tier: 0, spawn: "end" },
+  { name: "Smart", resource: "Egg", parents: [], speed: 1.0, bg: "#F5E6C8", fg: "#FFF0D0", mod: "vanilla", tier: 0, spawn: "" },
+  { name: "Dragon", resource: "Dragon Egg", parents: [], speed: 1.0, bg: "#1A0A2E", fg: "#3A2A4E", mod: "end", tier: 0, spawn: "" },
+  // TIER 1
+  { name: "Orange", resource: "Orange Dye", parents: ["Red", "Yellow"], speed: 1.0, bg: "#CC6600", fg: "#FF9944", mod: "dye", tier: 1, spawn: "" },
+  { name: "Pink", resource: "Pink Dye", parents: ["Red", "White"], speed: 1.0, bg: "#CC6688", fg: "#FFAACC", mod: "dye", tier: 1, spawn: "" },
+  { name: "Gray", resource: "Gray Dye", parents: ["Black", "White"], speed: 1.0, bg: "#555555", fg: "#888888", mod: "dye", tier: 1, spawn: "" },
+  { name: "Lime", resource: "Lime Dye", parents: ["Green", "White"], speed: 1.0, bg: "#44AA00", fg: "#88DD44", mod: "dye", tier: 1, spawn: "" },
+  { name: "Brown", resource: "Cocoa Beans", parents: ["Red", "Green"], speed: 1.0, bg: "#663311", fg: "#995533", mod: "dye", tier: 1, spawn: "" },
+  { name: "Blue", resource: "Lapis Lazuli", parents: ["Water", "Flint"], speed: 1.0, bg: "#2244AA", fg: "#4466CC", mod: "dye", tier: 1, spawn: "" },
+  { name: "Redstone", resource: "Redstone", parents: ["Red", "Sand"], speed: 1.0, bg: "#AA0000", fg: "#DD3333", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Coal", resource: "Coal", parents: ["Flint", "Log"], speed: 1.0, bg: "#2A2A2A", fg: "#4A4A4A", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Iron", resource: "Iron Ingot", parents: ["Flint", "White"], speed: 1.0, bg: "#C0C0C0", fg: "#D8D8D8", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Clay", resource: "Clay Ball", parents: ["Snowball", "Sand"], speed: 1.0, bg: "#9090A0", fg: "#B0B0C0", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "String", resource: "String", parents: ["Black", "Log"], speed: 1.0, bg: "#CCCCCC", fg: "#EEEEEE", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Glowstone", resource: "Glowstone Dust", parents: ["Quartz", "Yellow"], speed: 1.0, bg: "#CC9900", fg: "#FFCC44", mod: "nether", tier: 1, spawn: "" },
+  { name: "Gunpowder", resource: "Gunpowder", parents: ["Sand", "Flint"], speed: 1.0, bg: "#555555", fg: "#777777", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Prismarine Shard", resource: "Prismarine Shard", parents: ["Water", "Sand"], speed: 1.0, bg: "#5A8A7A", fg: "#7AAAA0", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Obsidian", resource: "Obsidian", parents: ["Water", "Lava"], speed: 1.0, bg: "#1A0A2E", fg: "#3A2A4E", mod: "vanilla", tier: 1, spawn: "" },
+  { name: "Brine", resource: "Liquid Egg (Brine)", parents: ["Water", "Sand"], speed: 1.0, bg: "#7AAABA", fg: "#A0D0E0", mod: "other", tier: 1, spawn: "" },
+  { name: "Nickel (Mek)", resource: "Nickel Ingot", parents: ["White", "Green"], speed: 1.0, bg: "#A0A080", fg: "#C0C0A0", mod: "other", tier: 1, spawn: "" },
+  // TIER 2
+  { name: "Light Blue", resource: "Light Blue Dye", parents: ["White", "Blue"], speed: 1.0, bg: "#5588CC", fg: "#88BBFF", mod: "dye", tier: 2, spawn: "" },
+  { name: "Silver Dye", resource: "Light Gray Dye", parents: ["Gray", "White"], speed: 1.0, bg: "#999999", fg: "#CCCCCC", mod: "dye", tier: 2, spawn: "" },
+  { name: "Cyan", resource: "Cyan Dye", parents: ["Blue", "Green"], speed: 1.0, bg: "#007788", fg: "#44AABB", mod: "dye", tier: 2, spawn: "" },
+  { name: "Purple", resource: "Purple Dye", parents: ["Blue", "Red"], speed: 1.0, bg: "#7722AA", fg: "#AA55DD", mod: "dye", tier: 2, spawn: "" },
+  { name: "Gold", resource: "Gold Nugget", parents: ["Iron", "Yellow"], speed: 1.0, bg: "#CCAA00", fg: "#FFDD44", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Glass", resource: "Glass", parents: ["Quartz", "Redstone"], speed: 1.0, bg: "#C8E8E8", fg: "#E8FFFF", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Slime", resource: "Slime Ball", parents: ["Clay", "Green"], speed: 1.0, bg: "#44AA44", fg: "#88DD88", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Leather", resource: "Leather", parents: ["String", "Brown"], speed: 1.0, bg: "#8B4513", fg: "#A0522D", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Netherwart", resource: "Nether Wart", parents: ["Brown", "Glowstone"], speed: 1.0, bg: "#660022", fg: "#991144", mod: "nether", tier: 2, spawn: "" },
+  { name: "Prismarine Crystal", resource: "Prismarine Crystals", parents: ["Prismarine Shard", "Glowstone"], speed: 1.0, bg: "#6AAA9A", fg: "#9ADDC0", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Redstone Flux", resource: "Flux Egg", parents: ["Redstone", "Glowstone"], speed: 1.0, bg: "#AA0000", fg: "#FF4444", mod: "other", tier: 2, spawn: "" },
+  { name: "Sky Stone", resource: "Sky Stone Block", parents: ["Obsidian", "Coal"], speed: 1.0, bg: "#3A3A3A", fg: "#5A5A5A", mod: "ae2", tier: 2, spawn: "" },
+  { name: "Redstone Crystal", resource: "Redstone Crystal", parents: ["Redstone", "Quartz"], speed: 1.0, bg: "#AA0000", fg: "#DD3333", mod: "ae2", tier: 2, spawn: "" },
+  { name: "Draconium", resource: "Draconium Ingot", parents: ["Gunpowder", "Ender"], speed: 1.0, bg: "#6A00AA", fg: "#9944DD", mod: "other", tier: 2, spawn: "" },
+  { name: "Copper", resource: "Copper Ingot", parents: ["Yellow", "Brown"], speed: 1.0, bg: "#B87333", fg: "#D49355", mod: "vanilla", tier: 2, spawn: "" },
+  { name: "Tin (Mek)", resource: "Tin Ingot (Mekanism)", parents: ["White", "Clay"], speed: 1.0, bg: "#B8B8C8", fg: "#D0D0E0", mod: "other", tier: 2, spawn: "" },
+  { name: "Zinc", resource: "Zinc Ingot", parents: ["White", "Clay"], speed: 1.0, bg: "#A0A0B0", fg: "#C0C0D0", mod: "other", tier: 2, spawn: "" },
+  { name: "Silver Ore", resource: "Azure Silver Ingot", parents: ["Iron", "White"], speed: 1.0, bg: "#C0C0D0", fg: "#E0E0F0", mod: "other", tier: 2, spawn: "" },
+  { name: "Osmium", resource: "Osmium Ingot", parents: ["Iron", "Quartz"], speed: 1.0, bg: "#6080A0", fg: "#80A0C0", mod: "other", tier: 2, spawn: "" },
+  { name: "Uranium (Mek)", resource: "Uranium Ingot (Mekanism)", parents: ["Redstone", "Ender"], speed: 1.0, bg: "#4D7326", fg: "#6B9D3A", mod: "other", tier: 2, spawn: "" },
+  { name: "Silicon (AE2)", resource: "Silicon", parents: ["Clay", "Sand"], speed: 1.0, bg: "#505060", fg: "#707080", mod: "ae2", tier: 2, spawn: "" },
+  { name: "Sulfur (Mek)", resource: "Sulfur Dust", parents: ["Gunpowder", "Flint"], speed: 1.0, bg: "#C8C820", fg: "#E0E060", mod: "other", tier: 2, spawn: "" },
+  { name: "Aluminum (Mek)", resource: "Aluminum Ingot", parents: ["Flint", "Iron"], speed: 1.0, bg: "#C0C0C0", fg: "#E0E0E0", mod: "other", tier: 2, spawn: "" },
+  { name: "Steel (Mek)", resource: "Steel Ingot (Mekanism)", parents: ["Iron", "Coal"], speed: 1.0, bg: "#808080", fg: "#A0A0A0", mod: "other", tier: 2, spawn: "" },
+  { name: "Invar (Mek)", resource: "Invar Double Ingot", parents: ["Iron", "Nickel (Mek)"], speed: 1.0, bg: "#909080", fg: "#B0B0A0", mod: "mi", tier: 2, spawn: "" },
+  { name: "Dry Ice", resource: "Dry Ice", parents: ["Snowball", "Blue"], speed: 0.8, bg: "#A0D0FF", fg: "#D0E8FF", mod: "powah", tier: 2, spawn: "" },
+  { name: "Lead", resource: "Lead Tiny Dust", parents: ["Iron", "Flint"], speed: 1.0, bg: "#5C5C5C", fg: "#8A8A8A", mod: "mi", tier: 2, spawn: "" },
+  { name: "Nickel", resource: "Nickel Tiny Dust", parents: ["Iron", "Quartz"], speed: 1.0, bg: "#A0A080", fg: "#C0C0A0", mod: "mi", tier: 2, spawn: "" },
+  { name: "Steel", resource: "Steel Tiny Dust", parents: ["Iron", "Coal"], speed: 1.0, bg: "#808080", fg: "#A0A0A0", mod: "mi", tier: 2, spawn: "" },
+  { name: "Salt", resource: "Salt", parents: ["Glowstone", "Quartz"], speed: 1.0, bg: "#FFFFFF", fg: "#E8E8E0", mod: "other", tier: 2, spawn: "" },
+  { name: "Sulfur", resource: "Sulfur Tiny Dust", parents: ["Coal", "Redstone"], speed: 1.0, bg: "#C8C820", fg: "#E0E060", mod: "mi", tier: 2, spawn: "" },
+  { name: "Lignite Coal", resource: "Lignite Coal Tiny Dust", parents: ["Coal", "Sand"], speed: 1.0, bg: "#605030", fg: "#806848", mod: "mi", tier: 2, spawn: "" },
+  { name: "Silicon", resource: "Silicon Tiny Dust", parents: ["Quartz", "Redstone"], speed: 1.0, bg: "#4A4A5A", fg: "#6A6A8A", mod: "mi", tier: 2, spawn: "" },
+  { name: "Certus Quartz Dust", resource: "Certus Quartz Dust", parents: ["Quartz", "Glowstone"], speed: 0.8, bg: "#C0C8D0", fg: "#E0E8F0", mod: "ae2", tier: 2, spawn: "" },
+  // TIER 3
+  { name: "Magenta", resource: "Magenta Dye", parents: ["Purple", "Pink"], speed: 1.0, bg: "#AA2288", fg: "#DD55BB", mod: "dye", tier: 3, spawn: "" },
+  { name: "Amethyst", resource: "Amethyst Shard", parents: ["Quartz", "Purple"], speed: 1.0, bg: "#8844AA", fg: "#AA66CC", mod: "vanilla", tier: 3, spawn: "" },
+  { name: "Diamond", resource: "Diamond", parents: ["Glass", "Gold"], speed: 1.0, bg: "#44CCCC", fg: "#88FFFF", mod: "vanilla", tier: 3, spawn: "" },
+  { name: "Blaze", resource: "Blaze Rod", parents: ["Gold", "Lava"], speed: 1.0, bg: "#CC6600", fg: "#FFAA33", mod: "nether", tier: 3, spawn: "" },
+  { name: "Lead (Mek)", resource: "Lead Ingot (Mekanism)", parents: ["Iron", "Cyan"], speed: 1.0, bg: "#4A4A6A", fg: "#6A6A8A", mod: "other", tier: 3, spawn: "" },
+  { name: "Platinum (Mek)", resource: "Platinum Ingot", parents: ["Nickel (Mek)", "Silver Ore"], speed: 1.0, bg: "#E5E4E2", fg: "#F5F5F0", mod: "other", tier: 3, spawn: "" },
+  { name: "Bronze (Mek)", resource: "Bronze Ingot (Mekanism)", parents: ["Copper", "Tin (Mek)"], speed: 1.0, bg: "#CD7F32", fg: "#E8A862", mod: "other", tier: 3, spawn: "" },
+  { name: "Brass", resource: "Brass Ingot", parents: ["Copper", "Zinc"], speed: 1.0, bg: "#C8A832", fg: "#E0C858", mod: "other", tier: 3, spawn: "" },
+  { name: "Electrum (Mek)", resource: "Electrum Ingot", parents: ["Silver Ore", "Gold"], speed: 1.0, bg: "#FFD700", fg: "#FFF0A0", mod: "other", tier: 3, spawn: "" },
+  { name: "Saltpeter", resource: "Dirty Niter Dust", parents: ["Sulfur (Mek)", "Redstone"], speed: 1.0, bg: "#D0D0D0", fg: "#F0F0F0", mod: "other", tier: 3, spawn: "" },
+  { name: "Certus Quartz", resource: "Certus Quartz Crystal", parents: ["Quartz", "Glass"], speed: 1.0, bg: "#C0C8D0", fg: "#E0E8F0", mod: "ae2", tier: 3, spawn: "" },
+  { name: "Fluorite", resource: "Fluorite Gem", parents: ["Uranium (Mek)", "Quartz"], speed: 1.0, bg: "#77DDAA", fg: "#AAFFCC", mod: "other", tier: 3, spawn: "" },
+  { name: "Uraninite", resource: "Uraninite", parents: ["Uranium (Mek)", "Coal"], speed: 1.0, bg: "#4D7326", fg: "#6B9D3A", mod: "powah", tier: 3, spawn: "" },
+  { name: "Plutonium Pellet", resource: "Plutonium Pellet", parents: ["Uranium (Mek)", "Osmium"], speed: 1.0, bg: "#5D4E6D", fg: "#7D6E8D", mod: "other", tier: 3, spawn: "" },
+  { name: "Energized Steel", resource: "Energized Steel", parents: ["Steel", "Gold"], speed: 0.8, bg: "#C0A020", fg: "#E0C040", mod: "powah", tier: 3, spawn: "" },
+  { name: "Blazing Crystal", resource: "Blazing Crystal", parents: ["Gold", "Glowstone"], speed: 0.8, bg: "#FF6600", fg: "#FFAA44", mod: "powah", tier: 3, spawn: "" },
+  { name: "Tin", resource: "Tin Tiny Dust", parents: ["Iron", "Copper"], speed: 1.0, bg: "#B0B0B0", fg: "#D0D0D0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Antimony", resource: "Antimony Tiny Dust", parents: ["Lead", "Coal"], speed: 0.8, bg: "#6A6A70", fg: "#9A9AA0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Electrum", resource: "Electrum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#FFD700", fg: "#FFF0A0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Invar", resource: "Invar Tiny Dust", parents: ["Iron", "Nickel"], speed: 0.8, bg: "#909080", fg: "#B0B0A0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Manganese", resource: "Manganese Tiny Dust", parents: ["Iron", "Steel"], speed: 0.8, bg: "#5A5060", fg: "#7A7080", mod: "mi", tier: 3, spawn: "" },
+  { name: "Chromium", resource: "Chromium Tiny Dust", parents: ["Steel", "Nickel"], speed: 0.8, bg: "#808880", fg: "#A0A8A0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Cupronickel", resource: "Cupronickel Tiny Dust", parents: ["Copper", "Nickel"], speed: 0.8, bg: "#B89070", fg: "#D0A888", mod: "mi", tier: 3, spawn: "" },
+  { name: "Monazite", resource: "Monazite Tiny Dust", parents: ["Lead", "Nickel"], speed: 0.8, bg: "#705030", fg: "#906848", mod: "mi", tier: 3, spawn: "" },
+  { name: "Platinum", resource: "Platinum Tiny Dust", parents: ["Gold", "Nickel"], speed: 0.8, bg: "#E5E4E2", fg: "#F5F5F0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Uranium", resource: "Uranium Tiny Dust", parents: ["Lead", "Gold"], speed: 0.8, bg: "#4D7326", fg: "#6B9D3A", mod: "mi", tier: 3, spawn: "" },
+  { name: "Cadmium", resource: "Cadmium Tiny Dust", parents: ["Lead", "Tin"], speed: 0.6, bg: "#606060", fg: "#888888", mod: "mi", tier: 3, spawn: "" },
+  { name: "Sodium", resource: "Sodium Tiny Dust", parents: ["Salt", "Redstone"], speed: 0.8, bg: "#D0D0D0", fg: "#F0F0F0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Fluix Dust", resource: "Fluix Dust", parents: ["Certus Quartz Dust", "Redstone"], speed: 0.8, bg: "#6030A0", fg: "#9060D0", mod: "ae2", tier: 3, spawn: "" },
+  { name: "Salt Dust", resource: "Salt Dust", parents: ["Salt", "Coal"], speed: 0.8, bg: "#E8E8D0", fg: "#F0F0E0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Salt Tiny Dust", resource: "Salt Tiny Dust", parents: ["Salt", "Sand"], speed: 0.8, bg: "#E0E0C8", fg: "#F0F0E0", mod: "mi", tier: 3, spawn: "" },
+  { name: "Cupronickel (Mek)", resource: "Cupronickel Double Ingot", parents: ["Copper", "Nickel (Mek)"], speed: 1.0, bg: "#B89070", fg: "#D0A888", mod: "mi", tier: 3, spawn: "" },
+  // TIER 4
+  { name: "Emerald", resource: "Emerald", parents: ["Diamond", "Green"], speed: 1.0, bg: "#00AA44", fg: "#44DD88", mod: "vanilla", tier: 4, spawn: "" },
+  { name: "Ghast", resource: "Ghast Tear", parents: ["White", "Blaze"], speed: 1.0, bg: "#E0E0E0", fg: "#F8F8F8", mod: "nether", tier: 4, spawn: "" },
+  { name: "Magma", resource: "Magma Cream", parents: ["Slime", "Blaze"], speed: 1.0, bg: "#AA4400", fg: "#DD7733", mod: "nether", tier: 4, spawn: "" },
+  { name: "Wither", resource: "Nether Star", parents: ["Soul Sand", "Blaze"], speed: 0.4, bg: "#1A1A1A", fg: "#4D4D4D", mod: "nether", tier: 4, spawn: "" },
+  { name: "Charged Certus", resource: "Charged Certus Quartz Crystal", parents: ["Certus Quartz", "Redstone"], speed: 1.0, bg: "#D0D8E0", fg: "#F0F8FF", mod: "ae2", tier: 4, spawn: "" },
+  { name: "AE2 Fluix", resource: "Fluix Crystal", parents: ["Certus Quartz", "Glowstone"], speed: 1.0, bg: "#6030A0", fg: "#9060D0", mod: "ae2", tier: 4, spawn: "" },
+  { name: "Celestigem", resource: "Celestigem", parents: ["Diamond", "Glowstone"], speed: 1.0, bg: "#88AADD", fg: "#BBDDFF", mod: "other", tier: 4, spawn: "" },
+  { name: "Polonium Pellet", resource: "Polonium Pellet", parents: ["Plutonium Pellet", "Fluorite"], speed: 1.0, bg: "#6D5E5D", fg: "#8D7E7D", mod: "other", tier: 4, spawn: "" },
+  { name: "Niotic Crystal", resource: "Niotic Crystal", parents: ["Diamond", "Blue"], speed: 0.6, bg: "#6666FF", fg: "#AAAAFF", mod: "powah", tier: 4, spawn: "" },
+  { name: "Yttrium", resource: "Yttrium Tiny Dust", parents: ["Monazite", "Quartz"], speed: 0.8, bg: "#808090", fg: "#A0A0B0", mod: "mi", tier: 4, spawn: "" },
+  { name: "Stainless Steel", resource: "Stainless Steel Tiny Dust", parents: ["Steel", "Chromium"], speed: 0.6, bg: "#E0E0E0", fg: "#F0F0F0", mod: "mi", tier: 4, spawn: "" },
+  { name: "Battery Alloy", resource: "Battery Alloy Tiny Dust", parents: ["Lead", "Antimony"], speed: 0.6, bg: "#606870", fg: "#808890", mod: "mi", tier: 4, spawn: "" },
+  { name: "Bauxite", resource: "Bauxite Tiny Dust", parents: ["Aluminum", "Iron"], speed: 0.8, bg: "#A05030", fg: "#C07050", mod: "mi", tier: 4, spawn: "" },
+  { name: "Uranium-235", resource: "Uranium-235 Tiny Dust", parents: ["Uranium", "Diamond"], speed: 0.5, bg: "#3D6320", fg: "#5B8D2A", mod: "mi", tier: 4, spawn: "" },
+  { name: "Uranium-238", resource: "Uranium-238 Tiny Dust", parents: ["Uranium", "Lead"], speed: 0.5, bg: "#5D8330", fg: "#7BA34A", mod: "mi", tier: 4, spawn: "" },
+  { name: "Bronze", resource: "Bronze Tiny Dust", parents: ["Copper", "Tin"], speed: 1.0, bg: "#CD7F32", fg: "#E8A862", mod: "mi", tier: 4, spawn: "" },
+  { name: "Aluminum", resource: "Aluminum Tiny Dust", parents: ["Tin", "Nickel"], speed: 0.8, bg: "#C0C0C0", fg: "#E0E0E0", mod: "mi", tier: 4, spawn: "" },
+  { name: "Soldering Alloy", resource: "Soldering Alloy Tiny Dust", parents: ["Tin", "Lead"], speed: 0.8, bg: "#888890", fg: "#A8A8B0", mod: "mi", tier: 4, spawn: "" },
+  // TIER 5
+  { name: "Netherite", resource: "Ancient Debris", parents: ["Wither", "Blaze"], speed: 1.0, bg: "#5C3A1E", fg: "#7C5A3E", mod: "nether", tier: 5, spawn: "" },
+  { name: "Entro", resource: "Entro Ingot", parents: ["AE2 Fluix", "Certus Quartz"], speed: 1.0, bg: "#4A2880", fg: "#7A58B0", mod: "ae2", tier: 5, spawn: "" },
+  { name: "Antimatter Pellet", resource: "Antimatter Pellet", parents: ["Polonium Pellet", "Wither"], speed: 1.0, bg: "#3A3A5A", fg: "#5A5A7A", mod: "other", tier: 5, spawn: "" },
+  { name: "Eclipse Alloy", resource: "Eclipse Alloy Ingot", parents: ["Celestigem", "Diamond"], speed: 1.0, bg: "#2A2040", fg: "#4A4060", mod: "other", tier: 5, spawn: "" },
+  { name: "Spirited Crystal", resource: "Spirited Crystal", parents: ["Emerald", "Diamond"], speed: 0.6, bg: "#66FF66", fg: "#AAFFAA", mod: "powah", tier: 5, spawn: "" },
+  { name: "Ancient Debris", resource: "Ancient Debris", parents: ["Diamond", "Emerald"], speed: 0.4, bg: "#5C3A1E", fg: "#7C5A3E", mod: "vanilla", tier: 5, spawn: "" },
+  { name: "Plutonium", resource: "Plutonium Tiny Dust", parents: ["Uranium-235", "Uranium-238"], speed: 0.5, bg: "#5D4E6D", fg: "#7D6E8D", mod: "mi", tier: 5, spawn: "" },
+  { name: "Neodymium", resource: "Neodymium Tiny Dust", parents: ["Monazite", "Yttrium"], speed: 0.6, bg: "#708088", fg: "#90A0A8", mod: "mi", tier: 5, spawn: "" },
+  { name: "Beryllium", resource: "Beryllium Tiny Dust", parents: ["Emerald", "Aluminum"], speed: 0.6, bg: "#80A080", fg: "#A0C0A0", mod: "mi", tier: 5, spawn: "" },
+  { name: "LE Uranium", resource: "LE Uranium Tiny Dust", parents: ["Uranium", "Uranium-238"], speed: 0.5, bg: "#4D6336", fg: "#6B8D4A", mod: "mi", tier: 5, spawn: "" },
+  { name: "Titanium", resource: "Titanium Tiny Dust", parents: ["Aluminum", "Chromium"], speed: 0.6, bg: "#878681", fg: "#A8A8A0", mod: "mi", tier: 5, spawn: "" },
+  { name: "Kanthal", resource: "Kanthal Tiny Dust", parents: ["Chromium", "Aluminum"], speed: 0.6, bg: "#909890", fg: "#B0B8B0", mod: "mi", tier: 5, spawn: "" },
+  // TIER 6
+  { name: "Entro Crystal", resource: "Entro Crystal", parents: ["Entro", "Amethyst"], speed: 1.0, bg: "#5A3890", fg: "#8A68C0", mod: "ae2", tier: 6, spawn: "" },
+  { name: "Entro Dust", resource: "Entro Dust", parents: ["Entro", "Certus Quartz"], speed: 1.0, bg: "#4A2880", fg: "#7A58B0", mod: "ae2", tier: 6, spawn: "" },
+  { name: "Quantum Alloy", resource: "Quantum Alloy", parents: ["AE2 Fluix", "Entro"], speed: 1.0, bg: "#2A5880", fg: "#4A78A0", mod: "ae2", tier: 6, spawn: "" },
+  { name: "Time Crystal", resource: "Time Crystal", parents: ["Eclipse Alloy", "Quartz"], speed: 1.0, bg: "#6688AA", fg: "#88AACC", mod: "other", tier: 6, spawn: "" },
+  { name: "LE MOX", resource: "LE MOX Tiny Dust", parents: ["Plutonium", "Uranium-238"], speed: 0.5, bg: "#6D5E5D", fg: "#8D7E7D", mod: "mi", tier: 6, spawn: "" },
+  { name: "HE MOX", resource: "HE MOX Tiny Dust", parents: ["Plutonium", "Uranium-235"], speed: 0.5, bg: "#7D5E4D", fg: "#9D7E6D", mod: "mi", tier: 6, spawn: "" },
+  { name: "Tungsten", resource: "Tungsten Tiny Dust", parents: ["Steel", "Titanium"], speed: 0.6, bg: "#4A4A4A", fg: "#707070", mod: "mi", tier: 6, spawn: "" },
+  { name: "Iridium", resource: "Iridium Tiny Dust", parents: ["Platinum", "Titanium"], speed: 0.5, bg: "#E0E0F0", fg: "#F0F0FF", mod: "mi", tier: 6, spawn: "" },
 ];
 
 const MODS = [
@@ -1761,14 +2024,54 @@ QUESTS.forEach(q => {
 
 // ========== RENDER CHICKENS ==========
 const chickensGrid = document.getElementById('chickensGrid');
-function renderChickens(filter) {
+const chickenCount = document.getElementById('chickenCount');
+const chickenSearch = document.getElementById('chickenSearch');
+
+let activeModFilter = 'all';
+let activeTierFilter = 'all';
+let chickenQuery = '';
+
+const SPAWN_LABEL = { overworld: '&#127757; Overworld', nether: '&#128293; Nether', end: '&#127756; End' };
+const SPAWN_CLASS = { overworld: 'spawn-overworld', nether: 'spawn-nether', end: 'spawn-end' };
+const TIER_COLORS = ['#00b894','#00cec9','#fdcb6e','#e17055','#d63031','#fd79a8','#a29bfe'];
+
+function getModFilterKey(c) {
+  if (c.spawn && c.spawn !== '') return 'natural';
+  if (c.mod === 'dye') return 'dye';
+  if (c.mod === 'vanilla') return 'vanilla';
+  if (c.mod === 'mi') return 'mi';
+  if (c.mod === 'ae2') return 'ae2';
+  if (c.mod === 'powah') return 'powah';
+  if (c.mod === 'nether') return 'nether';
+  if (c.mod === 'end') return 'end';
+  return 'other';
+}
+
+function renderChickens() {
   chickensGrid.innerHTML = '';
-  const filtered = filter === 'all' ? CHICKENS : CHICKENS.filter(c => c.mod === filter);
+  const q = chickenQuery.toLowerCase();
+  const filtered = CHICKENS.filter(c => {
+    const modKey = getModFilterKey(c);
+    const modMatch = activeModFilter === 'all' || modKey === activeModFilter;
+    const tierMatch = activeTierFilter === 'all' || c.tier === parseInt(activeTierFilter, 10);
+    const searchMatch = !q || c.name.toLowerCase().includes(q) || c.resource.toLowerCase().includes(q);
+    return modMatch && tierMatch && searchMatch;
+  });
+
+  chickenCount.textContent = `SHOWING ${filtered.length} OF ${CHICKENS.length} BREEDS`;
+
   filtered.forEach(c => {
     const speedPercent = c.speed * 100;
     const speedColor = c.speed >= 1.0 ? '#00b894' : c.speed >= 0.8 ? '#fdcb6e' : c.speed >= 0.6 ? '#e17055' : '#fd79a8';
+    const tierColor = TIER_COLORS[c.tier] || '#a29bfe';
+    const tierBadge = `<span class="chicken-tier-badge tier-badge-${c.tier}">T${c.tier}</span>`;
+    const spawnBadge = c.spawn ? `<span class="chicken-spawn-badge ${SPAWN_CLASS[c.spawn]}">${SPAWN_LABEL[c.spawn]}</span>` : '';
+    const parentsHtml = c.parents.length > 0
+      ? `<div class="chicken-parents"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>${c.parents.join(' + ')}</div>`
+      : `<div class="chicken-parents" style="color: var(--accent-green);">&#127807; Natural Spawn</div>`;
     const card = document.createElement('div');
     card.className = 'chicken-card';
+    card.style.borderColor = `${tierColor}22`;
     card.innerHTML = `
       <div class="chicken-header">
         <div class="chicken-icon" style="background: linear-gradient(135deg, ${c.bg}, ${c.fg});">&#128038;</div>
@@ -1777,10 +2080,8 @@ function renderChickens(filter) {
           <div class="chicken-resource">${c.resource}</div>
         </div>
       </div>
-      <div class="chicken-parents">
-        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-        ${c.parents.join(' + ')}
-      </div>
+      <div class="chicken-badges">${tierBadge}${spawnBadge}</div>
+      ${parentsHtml}
       <div class="chicken-speed">
         <div class="speed-bar"><div class="speed-fill" style="width: ${speedPercent}%; background: ${speedColor};"></div></div>
         <span class="speed-label">${c.speed}x</span>
@@ -1789,14 +2090,30 @@ function renderChickens(filter) {
     chickensGrid.appendChild(card);
   });
 }
-renderChickens('all');
+
+renderChickens();
 
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    renderChickens(btn.dataset.filter);
+    activeModFilter = btn.dataset.filter;
+    renderChickens();
   });
+});
+
+document.querySelectorAll('.tier-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeTierFilter = btn.dataset.tier;
+    renderChickens();
+  });
+});
+
+chickenSearch.addEventListener('input', e => {
+  chickenQuery = e.target.value;
+  renderChickens();
 });
 
 // ========== RENDER MODS ==========
