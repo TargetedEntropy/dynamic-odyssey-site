@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trade Post for MineColonies — Complete Guide | Dynamic Odyssey</title>
+<meta name="description" content="Complete guide to the Trade Post for MineColonies mod: buildings, workers, progression, research tree, wishing well rituals, pets, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-void: #08080f;
+  --bg-deep: #0d0d1a;
+  --bg-card: #111128;
+  --bg-card-hover: #181840;
+  --bg-glass: rgba(17, 17, 40, 0.7);
+  --accent-primary: #6c5ce7;
+  --accent-secondary: #00cec9;
+  --accent-warm: #fd79a8;
+  --accent-gold: #fdcb6e;
+  --accent-fire: #e17055;
+  --accent-green: #00b894;
+  --text-primary: #e8e8f0;
+  --text-secondary: #a0a0c0;
+  --text-dim: #606080;
+  --border-subtle: rgba(108, 92, 231, 0.15);
+  --glow-primary: rgba(108, 92, 231, 0.4);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ========== NAV ========== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(8, 8, 15, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.8rem 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+nav a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; margin-left: 1.5rem; transition: color 0.2s; }
+nav a:hover { color: var(--accent-gold); }
+.nav-title { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: var(--accent-gold); font-weight: 700; }
+.nav-links { display: flex; flex-wrap: wrap; }
+
+/* ========== HERO ========== */
+.hero {
+  padding: 8rem 2rem 4rem;
+  text-align: center;
+  background: linear-gradient(180deg, var(--bg-void) 0%, var(--bg-deep) 100%);
+  position: relative;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+}
+.hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-fire));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+.hero .subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem; color: var(--text-secondary);
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.hero-stats {
+  display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat .num { font-family: 'Orbitron', sans-serif; font-size: 2rem; color: var(--accent-secondary); }
+.hero-stat .label { font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+
+/* ========== SECTIONS ========== */
+section { padding: 4rem 2rem; max-width: 1200px; margin: 0 auto; }
+section h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem; color: var(--accent-primary);
+  margin-bottom: 1.5rem; padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-subtle);
+}
+section h3 {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.4rem; color: var(--accent-gold);
+  margin: 2rem 0 0.8rem; font-weight: 600;
+}
+section h4 {
+  font-size: 1.1rem; color: var(--accent-secondary);
+  margin: 1.5rem 0 0.5rem;
+}
+p { margin-bottom: 1rem; color: var(--text-secondary); }
+
+/* ========== CARDS ========== */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px; padding: 1.5rem;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-2px); border-color: var(--accent-primary); }
+.card .card-title {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1.3rem; color: var(--accent-gold); margin-bottom: 0.3rem; font-weight: 700;
+}
+.card .card-worker { font-size: 0.85rem; color: var(--accent-secondary); margin-bottom: 0.8rem; }
+.card .card-body { font-size: 0.95rem; color: var(--text-secondary); }
+.card .card-unlock { font-size: 0.8rem; color: var(--accent-warm); margin-top: 0.8rem; }
+
+/* ========== TABLES ========== */
+table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem; font-size: 0.9rem; }
+th {
+  background: var(--bg-card);
+  color: var(--accent-secondary); font-family: 'Rajdhani', sans-serif;
+  font-weight: 600; text-align: left; padding: 0.7rem 1rem;
+  border-bottom: 2px solid var(--accent-primary);
+  text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem;
+}
+td { padding: 0.6rem 1rem; border-bottom: 1px solid var(--border-subtle); color: var(--text-secondary); }
+tr:hover td { background: rgba(108, 92, 231, 0.05); }
+.coin-bronze { color: #cd7f32; font-weight: 600; }
+.coin-gold { color: #ffd700; font-weight: 600; }
+.coin-diamond { color: #b9f2ff; font-weight: 600; }
+
+/* ========== PROGRESSION ========== */
+.progression { counter-reset: step; }
+.progression .step {
+  position: relative; padding: 1rem 1rem 1rem 3.5rem; margin-bottom: 0.5rem;
+  background: var(--bg-card); border-radius: 8px; border-left: 3px solid var(--accent-primary);
+}
+.progression .step::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute; left: 1rem; top: 1rem;
+  font-family: 'Orbitron', sans-serif; font-size: 1.1rem;
+  color: var(--accent-primary); font-weight: 700;
+}
+.progression .step strong { color: var(--accent-gold); }
+
+/* ========== RESEARCH TREE ========== */
+.research-tier { margin-bottom: 2rem; }
+.research-tier .tier-label {
+  font-family: 'Orbitron', sans-serif; font-size: 0.85rem;
+  color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+}
+.research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.8rem; }
+.research-node {
+  background: var(--bg-card); border: 1px solid var(--border-subtle);
+  border-radius: 8px; padding: 1rem; font-size: 0.9rem;
+}
+.research-node .rn-name { color: var(--accent-gold); font-weight: 600; font-size: 1rem; }
+.research-node .rn-parent { color: var(--text-dim); font-size: 0.8rem; }
+.research-node .rn-req { color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.3rem; }
+.research-node .rn-cost { color: var(--accent-warm); font-size: 0.85rem; }
+.research-node .rn-effect { color: var(--accent-green); font-size: 0.85rem; margin-top: 0.3rem; }
+
+/* ========== MISC ========== */
+.tag { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-right: 0.3rem; }
+.tag-building { background: rgba(108, 92, 231, 0.2); color: var(--accent-primary); }
+.tag-worker { background: rgba(0, 206, 201, 0.2); color: var(--accent-secondary); }
+.tag-research { background: rgba(253, 203, 110, 0.2); color: var(--accent-gold); }
+.tag-item { background: rgba(253, 121, 168, 0.2); color: var(--accent-warm); }
+
+.back-link { display: inline-block; margin: 2rem 0; color: var(--accent-secondary); text-decoration: none; font-size: 0.9rem; }
+.back-link:hover { color: var(--accent-gold); }
+
+.warning {
+  background: rgba(225, 112, 85, 0.1); border: 1px solid var(--accent-fire);
+  border-radius: 8px; padding: 1rem; margin: 1rem 0; color: var(--accent-fire); font-size: 0.9rem;
+}
+
+footer {
+  text-align: center; padding: 3rem 2rem; color: var(--text-dim); font-size: 0.8rem;
+  border-top: 1px solid var(--border-subtle);
+}
+footer a { color: var(--accent-secondary); text-decoration: none; }
+
+@media (max-width: 768px) {
+  .card-grid { grid-template-columns: 1fr; }
+  .research-grid { grid-template-columns: 1fr; }
+  nav { flex-direction: column; gap: 0.5rem; }
+  table { font-size: 0.8rem; }
+  th, td { padding: 0.4rem 0.5rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-title">Trade Post Guide</span>
+  <div class="nav-links">
+    <a href="#buildings">Buildings</a>
+    <a href="#workers">Workers</a>
+    <a href="#progression">Progression</a>
+    <a href="#research">Research Tree</a>
+    <a href="#wishing-well">Wishing Well</a>
+    <a href="#pets">Pets</a>
+    <a href="#burnout">Burnout</a>
+    <a href="#items">Items</a>
+    <a href="#config">Config</a>
+    <a href="index.html">Main Site</a>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<div class="hero">
+  <h1>Trade Post for MineColonies</h1>
+  <div class="subtitle">Complete Guide &mdash; Dynamic Odyssey</div>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">6</div><div class="label">Buildings</div></div>
+    <div class="hero-stat"><div class="num">8</div><div class="label">Workers</div></div>
+    <div class="hero-stat"><div class="num">26</div><div class="label">Researches</div></div>
+    <div class="hero-stat"><div class="num">19</div><div class="label">Rituals</div></div>
+    <div class="hero-stat"><div class="num">4</div><div class="label">Pet Types</div></div>
+  </div>
+</div>
+
+<!-- ========== OVERVIEW ========== -->
+<section>
+  <h2>Overview</h2>
+  <p>Trade Post adds a full economic system to MineColonies built around <strong>Trade Coins</strong>. Sell items at your Marketplace, trade between colonies via rail, send citizens on vacation, train pets for automated tasks, recycle materials, and establish remote outposts.</p>
+  <div class="warning">Removing this mod after use in a colony can corrupt the colony. If you need to remove it, deconstruct all Trade Post buildings first but keep the JAR installed.</div>
+</section>
+
+<!-- ========== BUILDINGS ========== -->
+<section id="buildings">
+  <h2>Buildings</h2>
+  <div class="card-grid">
+
+    <div class="card">
+      <div class="card-title">Marketplace</div>
+      <div class="card-worker"><span class="tag tag-worker">Shopkeeper</span></div>
+      <div class="card-body">
+        The economic foundation. Sell items as souvenirs to colony visitors for Trade Coins. At level 2+, mint Bronze Trade Coins. Configure sellable items and watch the coins roll in.
+        <br><br>
+        <strong>Revenue formula:</strong> item value &times; (1 + primary_skill / 50)
+        <br>
+        <strong>Visitor shopping chance:</strong> building_level &times; (shoppingChance/100 + research_modifier)
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">No research required</span> &mdash; Build first!</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Train Station</div>
+      <div class="card-worker"><span class="tag tag-worker">Station Master</span></div>
+      <div class="card-body">
+        Inter-colony trade hub. Connect colonies by rail for import/export. Increases colony visitor count. Ghost minecarts travel the tracks during shipments.
+        <br><br>
+        <strong>Imports per level:</strong> 5 (configurable)<br>
+        <strong>Trade speed:</strong> 4 per building level<br>
+        <strong>Visitor boost:</strong> random(10 &times; level) + 15
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">Expansionism</span> &mdash; Marketplace L1 + 16 rails + 1 Trade Coin</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Resort</div>
+      <div class="card-worker"><span class="tag tag-worker">Guest Services</span> <span class="tag tag-worker">Bartender</span></div>
+      <div class="card-body">
+        Citizens with burned-out stats go on vacation here. Guest Services diagnoses the issue and delivers remedy items. Bartender mixes drinks that help vacationers relax.
+        <br><br>
+        <strong>Guest capacity:</strong> 2 per level (level 5 = 10 guests)<br>
+        <strong>Healing:</strong> +2 stat points per vacation<br>
+        <strong>Income:</strong> 1 Trade Coin per vacation
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">Staycations</span> &mdash; Marketplace L2 + 1 Trade Coin</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Recycling Center</div>
+      <div class="card-worker"><span class="tag tag-worker">Recycling Engineer</span></div>
+      <div class="card-body">
+        Breaks down unwanted items into raw components. Processes souvenirs, uses reverse-engineered crafting recipes, and can strip enchantments (with research).
+        <br><br>
+        <strong>Capacity:</strong> 2 processes per level (level 5 = 10)<br>
+        <strong>Cycle time:</strong> 100 ticks (configurable)<br>
+        <strong>Perfect recycling at:</strong> skill level 50
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">Environmentalism</span> &mdash; Marketplace L1 + 5 Trade Coins</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Pet Shop</div>
+      <div class="card-worker"><span class="tag tag-worker">Animal Trainer</span></div>
+      <div class="card-body">
+        Train wolves, foxes, axolotls, and parrots for colony tasks: herding, scavenging, dredging, hauling. With Husbandry research, also procure farm animals.
+        <br><br>
+        <strong>Pet capacity:</strong> 2 per level (level 5 = 10 pets)<br>
+        <strong>Training cost:</strong> 16 items + 3 Trade Coins per pet
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">Best Friends</span> &mdash; Marketplace L1 + 16 bowls</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Outpost</div>
+      <div class="card-worker"><span class="tag tag-worker">Scout</span></div>
+      <div class="card-body">
+        Remote colony extension up to 800 blocks away. Access different biomes for crops. Includes sub-buildings: Builder, Farm, Guard towers. Connected by rail.
+        <br><br>
+        <strong>Max distance:</strong> 800 blocks (configurable)<br>
+        <strong>Sub-buildings:</strong> Builder, Farm, Guard Left, Guard Right
+      </div>
+      <div class="card-unlock"><span class="tag tag-research">Outpost</span> &mdash; Station L3 + 1 Outpost Claim + 3 Gold Coins</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== WORKERS ========== -->
+<section id="workers">
+  <h2>All Workers</h2>
+  <table>
+    <thead><tr><th>Worker</th><th>Building</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td>Shopkeeper</td><td>Marketplace</td><td>Sells items as souvenirs, generates Trade Coins</td></tr>
+      <tr><td>Station Master</td><td>Train Station</td><td>Validates rail connections, manages imports/exports</td></tr>
+      <tr><td>Guest Services</td><td>Resort</td><td>Diagnoses burned-out citizens, delivers remedy items</td></tr>
+      <tr><td>Bartender</td><td>Resort</td><td>Mixes drinks and treats for vacationers</td></tr>
+      <tr><td>Recycling Engineer</td><td>Recycling Center</td><td>Breaks down items into raw components</td></tr>
+      <tr><td>Animal Trainer</td><td>Pet Shop</td><td>Trains and feeds pets, assigns roles</td></tr>
+      <tr><td>Scout</td><td>Outpost</td><td>Orders supplies, manages outpost logistics via rail</td></tr>
+      <tr><td>Dairyworker</td><td>Cowhand's Hut*</td><td>Milks cows, crafts dairy products (smetana, milkshakes)</td></tr>
+      <tr><td>Stewmelier</td><td>Chef's Kitchen*</td><td>Makes perpetual stew from excess ingredients, serves hungry citizens</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.8rem; color:var(--text-dim);">* These workers are added to existing MineColonies buildings, not Trade Post buildings.</p>
+</section>
+
+<!-- ========== PROGRESSION ========== -->
+<section id="progression">
+  <h2>Recommended Progression</h2>
+  <div class="progression">
+    <div class="step"><strong>Build a Marketplace</strong> &mdash; no research needed. This is your first building and the foundation of the entire economy.</div>
+    <div class="step"><strong>Start selling items</strong> &mdash; configure sellable items in the Marketplace hut. Shopkeeper converts them to souvenirs and sells to visitors.</div>
+    <div class="step"><strong>Research Capitalism</strong> &mdash; requires Tavern L1 + Marketplace L1. Costs 5 gold ingots. Unlocks advertising upgrades.</div>
+    <div class="step"><strong>Mint Trade Coins</strong> &mdash; at Marketplace L2+, sneak-right-click the hut with an Advanced Clipboard, or use the economic tab.</div>
+    <div class="step"><strong>Research Expansionism</strong> &mdash; costs 16 rails + 1 Trade Coin. Build a <strong>Train Station</strong> to boost visitors and enable inter-colony trade.</div>
+    <div class="step"><strong>Research Staycations</strong> &mdash; requires Marketplace L2. Build a <strong>Resort</strong> when citizens show burnout symptoms.</div>
+    <div class="step"><strong>Research Environmentalism</strong> &mdash; costs 5 Trade Coins. Build a <strong>Recycling Center</strong> for breaking down excess materials.</div>
+    <div class="step"><strong>Research Best Friends</strong> &mdash; costs 16 bowls. Build a <strong>Pet Shop</strong> to train pets for herding, scavenging, and hauling.</div>
+    <div class="step"><strong>Build a Wishing Well</strong> &mdash; 2&times;2 water pool surrounded by Mixed Stone. Throw coins + items for rituals.</div>
+    <div class="step"><strong>Research Outpost</strong> &mdash; requires Station L3 + Tourism research. Establish <strong>remote outposts</strong> for biome-diverse farming (late game).</div>
+  </div>
+</section>
+
+<!-- ========== RESEARCH TREE ========== -->
+<section id="research">
+  <h2>Research Tree (Economics Branch)</h2>
+  <p>All researches are in the University under the "Economics" line.</p>
+
+  <div class="research-tier">
+    <div class="tier-label">Tier 1 &mdash; Root Researches</div>
+    <div class="research-grid">
+      <div class="research-node">
+        <div class="rn-name">Capitalism</div>
+        <div class="rn-req">Requires: Tavern L1 + Marketplace L1</div>
+        <div class="rn-cost">Cost: 5 Gold Ingots</div>
+        <div class="rn-effect">Unlocks: Advertising L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Environmentalism</div>
+        <div class="rn-req">Requires: Marketplace L1</div>
+        <div class="rn-cost">Cost: 5 Trade Coins</div>
+        <div class="rn-effect">Unlocks: Recycling Center</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Expansionism</div>
+        <div class="rn-req">Requires: Marketplace L1</div>
+        <div class="rn-cost">Cost: 16 Rails + 1 Trade Coin</div>
+        <div class="rn-effect">Unlocks: Train Station</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Staycations</div>
+        <div class="rn-req">Requires: Marketplace L2</div>
+        <div class="rn-cost">Cost: 1 Trade Coin</div>
+        <div class="rn-effect">Unlocks: Resort</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Best Friends</div>
+        <div class="rn-req">Requires: Marketplace L1</div>
+        <div class="rn-cost">Cost: 16 Bowls</div>
+        <div class="rn-effect">Unlocks: Pet Shop</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Thrift Shop</div>
+        <div class="rn-req">Requires: Marketplace L1</div>
+        <div class="rn-cost">Cost: 1 Trade Coin</div>
+        <div class="rn-effect">Unlocks: Rare Finds Tier 1</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="research-tier">
+    <div class="tier-label">Tier 2</div>
+    <div class="research-grid">
+      <div class="research-node">
+        <div class="rn-name">Flyers</div>
+        <div class="rn-parent">Parent: Capitalism</div>
+        <div class="rn-req">Requires: Marketplace L2</div>
+        <div class="rn-cost">Cost: 5 Trade Coins</div>
+        <div class="rn-effect">Advertising L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Arcane Disassembly</div>
+        <div class="rn-parent">Parent: Environmentalism</div>
+        <div class="rn-req">Requires: Recycling L3</div>
+        <div class="rn-cost">Cost: 15 Trade Coins</div>
+        <div class="rn-effect">Enchantment stripping L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Tourism</div>
+        <div class="rn-parent">Parent: Expansionism</div>
+        <div class="rn-req">Requires: Station L3</div>
+        <div class="rn-cost">Cost: 32 Rails + 5 Trade Coins</div>
+        <div class="rn-effect">Tourists L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Premium Vacation</div>
+        <div class="rn-parent">Parent: Staycations</div>
+        <div class="rn-req">Requires: Resort L2</div>
+        <div class="rn-cost">Cost: 1 <span class="coin-gold">Gold Coin</span> + 8 Daiquiris</div>
+        <div class="rn-effect">Five Star Service L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Husbandry Specialist</div>
+        <div class="rn-parent">Parent: Best Friends</div>
+        <div class="rn-req">Requires: Pet Shop L2</div>
+        <div class="rn-cost">Cost: 3 Trade Coins + 8 Wheat + 8 Carrots</div>
+        <div class="rn-effect">Farm animal procurement</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Pawn Shop</div>
+        <div class="rn-parent">Parent: Thrift Shop</div>
+        <div class="rn-req">Requires: Station L1</div>
+        <div class="rn-cost">Cost: 4 Trade Coins + Compass + Map</div>
+        <div class="rn-effect">Rare Finds Tier 2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Selection</div>
+        <div class="rn-parent">Parent: Capitalism</div>
+        <div class="rn-req">Requires: Station L1</div>
+        <div class="rn-cost">Cost: 1 Trade Coin</div>
+        <div class="rn-effect">Thrift Shop More L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">New Deals</div>
+        <div class="rn-parent">Parent: Capitalism</div>
+        <div class="rn-req">Requires: Station L2 + Marketplace L2</div>
+        <div class="rn-cost">Cost: 1 <span class="coin-gold">Gold Coin</span></div>
+        <div class="rn-effect">Thrift Shop reroll</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="research-tier">
+    <div class="tier-label">Tier 3</div>
+    <div class="research-grid">
+      <div class="research-node">
+        <div class="rn-name">Criers</div>
+        <div class="rn-parent">Parent: Flyers</div>
+        <div class="rn-req">Requires: Marketplace L3</div>
+        <div class="rn-cost">Cost: 10 Trade Coins</div>
+        <div class="rn-effect">Advertising L3</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Meticulous Disassembly</div>
+        <div class="rn-parent">Parent: Arcane Disassembly</div>
+        <div class="rn-req">Requires: Recycling L5</div>
+        <div class="rn-cost">Cost: 30 Trade Coins</div>
+        <div class="rn-effect">Disenchanting L5</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Fast Tracks</div>
+        <div class="rn-parent">Parent: Tourism</div>
+        <div class="rn-req">Requires: Station L3</div>
+        <div class="rn-cost">Cost: 64 Powered Rails + 15 Trade Coins</div>
+        <div class="rn-effect">Trade Speed L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Wheeler Dealer</div>
+        <div class="rn-parent">Parent: Tourism</div>
+        <div class="rn-req">Requires: Station L3</div>
+        <div class="rn-cost">Cost: 4 Chest Minecarts + 32 Detector Rails + 15 Trade Coins</div>
+        <div class="rn-effect">Trade Capacity L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Outpost</div>
+        <div class="rn-parent">Parent: Tourism</div>
+        <div class="rn-req">Requires: Station L3</div>
+        <div class="rn-cost">Cost: 1 Outpost Claim + 3 <span class="coin-gold">Gold Coins</span></div>
+        <div class="rn-effect">Unlocks Outpost building</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Luxury Vacation</div>
+        <div class="rn-parent">Parent: Premium Vacation</div>
+        <div class="rn-req">Requires: Resort L3</div>
+        <div class="rn-cost">Cost: 3 <span class="coin-gold">Gold Coins</span> + 16 Daiquiris</div>
+        <div class="rn-effect">Five Star Service L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Nine Lives</div>
+        <div class="rn-parent">Parent: Husbandry Specialist</div>
+        <div class="rn-req">Requires: Pet Shop L3</div>
+        <div class="rn-cost">Cost: 3 <span class="coin-gold">Gold Coins</span> + 4 Golden Apples + 4 Emeralds</div>
+        <div class="rn-effect">Vet L1</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Consignment Shop</div>
+        <div class="rn-parent">Parent: Pawn Shop</div>
+        <div class="rn-req">Requires: Station L3</div>
+        <div class="rn-cost">Cost: 1 <span class="coin-gold">Gold Coin</span> + Ghast Tear + 4 Nether Gold Ore</div>
+        <div class="rn-effect">Rare Finds Tier 3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="research-tier">
+    <div class="tier-label">Tier 4</div>
+    <div class="research-grid">
+      <div class="research-node">
+        <div class="rn-name">Buyers</div>
+        <div class="rn-parent">Parent: Criers</div>
+        <div class="rn-req">Requires: Marketplace L4</div>
+        <div class="rn-cost">Cost: 15 Trade Coins</div>
+        <div class="rn-effect">Advertising L4</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Faster Tracks</div>
+        <div class="rn-parent">Parent: Fast Tracks</div>
+        <div class="rn-req">Requires: Station L5</div>
+        <div class="rn-cost">Cost: 128 Powered Rails + 30 Trade Coins</div>
+        <div class="rn-effect">Trade Speed L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Big Deal</div>
+        <div class="rn-parent">Parent: Wheeler Dealer</div>
+        <div class="rn-req">Requires: Station L5</div>
+        <div class="rn-cost">Cost: 8 Chest Minecarts + 64 Detector Rails + 30 Trade Coins</div>
+        <div class="rn-effect">Trade Capacity L2</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">White Glove Service</div>
+        <div class="rn-parent">Parent: Luxury Vacation</div>
+        <div class="rn-req">Requires: Resort L4</div>
+        <div class="rn-cost">Cost: 1 <span class="coin-diamond">Diamond Coin</span> + 32 Daiquiris</div>
+        <div class="rn-effect">Five Star Service L3</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Antique Shop</div>
+        <div class="rn-parent">Parent: Consignment Shop</div>
+        <div class="rn-req">Requires: Station L5</div>
+        <div class="rn-cost">Cost: 1 <span class="coin-diamond">Diamond Coin</span> + 8 Chorus Flowers + 4 End Rods</div>
+        <div class="rn-effect">Rare Finds Tier 4</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="research-tier">
+    <div class="tier-label">Tier 5</div>
+    <div class="research-grid">
+      <div class="research-node">
+        <div class="rn-name">More Buyers</div>
+        <div class="rn-parent">Parent: Buyers</div>
+        <div class="rn-req">Requires: Marketplace L5</div>
+        <div class="rn-cost">Cost: 20 Trade Coins</div>
+        <div class="rn-effect">Advertising L5</div>
+      </div>
+      <div class="research-node">
+        <div class="rn-name">Five Star Resort</div>
+        <div class="rn-parent">Parent: White Glove Service</div>
+        <div class="rn-req">Requires: Resort L5</div>
+        <div class="rn-cost">Cost: 3 <span class="coin-diamond">Diamond Coins</span> + 64 Daiquiris</div>
+        <div class="rn-effect">Five Star Service L4</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== WISHING WELL ========== -->
+<section id="wishing-well">
+  <h2>Wishing Well Rituals</h2>
+  <p>Build a Wishing Well: surround a 2&times;2 pool of water (1 block deep) with Mixed Stone blocks. Throw a Trade Coin + companion item into the water to trigger a ritual. Check JEI for all available rituals.</p>
+
+  <h3>Crafting Rituals</h3>
+  <table>
+    <thead><tr><th>Result</th><th>Companion Item</th><th>Qty</th><th>Coin</th></tr></thead>
+    <tbody>
+      <tr><td>Stew Seasoning</td><td>Wheat Seeds</td><td>64</td><td class="coin-bronze">Bronze</td></tr>
+      <tr><td>Quartz Mortar</td><td>Quartz</td><td>64</td><td class="coin-bronze">Bronze</td></tr>
+      <tr><td>Prismarine Mortar</td><td>Prismarine Shard</td><td>64</td><td class="coin-gold">Gold</td></tr>
+      <tr><td>End Mortar</td><td>End Stone</td><td>64</td><td class="coin-diamond">Diamond</td></tr>
+      <tr><td>Outpost Claim</td><td>Outpost Claim Marker</td><td>1</td><td class="coin-diamond">Diamond</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Combat &amp; Weather Rituals</h3>
+  <table>
+    <thead><tr><th>Effect</th><th>Companion Item</th><th>Coin</th><th>Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Zombie Purge (100 blocks)</td><td>Rotten Flesh</td><td class="coin-bronze">Bronze</td><td>1</td></tr>
+      <tr><td>Skeleton Purge (100 blocks)</td><td>Bone</td><td class="coin-bronze">Bronze</td><td>1</td></tr>
+      <tr><td>Skeleton Horse Purge (100 blocks)</td><td>Saddle</td><td class="coin-bronze">Bronze</td><td>2</td></tr>
+      <tr><td>Summon Raid</td><td>Diamond Sword</td><td class="coin-bronze">Bronze</td><td>5</td></tr>
+      <tr><td>Clear Weather</td><td>Sunflower</td><td class="coin-bronze">Bronze</td><td>1</td></tr>
+      <tr><td>Rain</td><td>Water Bucket</td><td class="coin-bronze">Bronze</td><td>1</td></tr>
+      <tr><td>Thunderstorm</td><td>Blaze Rod</td><td class="coin-bronze">Bronze</td><td>1</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Community &amp; Gathering Rituals</h3>
+  <table>
+    <thead><tr><th>Effect</th><th>Companion Item</th><th>Coin</th></tr></thead>
+    <tbody>
+      <tr><td>Wish of Health</td><td>Wish of Health item</td><td class="coin-diamond">Diamond</td></tr>
+      <tr><td>Wish of Plenty</td><td>Wish of Plenty item</td><td class="coin-diamond">Diamond</td></tr>
+      <tr><td>Wish of Shelter</td><td>Wish of Shelter item</td><td class="coin-gold">Gold</td></tr>
+      <tr><td>Gather Cow</td><td>Cow Gathering Wish</td><td class="coin-bronze">Bronze</td></tr>
+      <tr><td>Gather Pig</td><td>Pig Gathering Wish</td><td class="coin-bronze">Bronze</td></tr>
+      <tr><td>Gather Chicken</td><td>Chicken Gathering Wish</td><td class="coin-bronze">Bronze</td></tr>
+      <tr><td>Gather Sheep</td><td>Sheep Gathering Wish</td><td class="coin-bronze">Bronze</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== PETS ========== -->
+<section id="pets">
+  <h2>Pet System</h2>
+  <p>Train pets at the Pet Shop. Each pet costs 16 training items + 3 Trade Coins. Assign them to working blocks for automated tasks.</p>
+
+  <h3>Pet Types</h3>
+  <table>
+    <thead><tr><th>Pet</th><th>Training Item</th><th>Qty</th><th>Coin Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Wolf</td><td>Bone</td><td>16</td><td class="coin-bronze">3 Bronze</td></tr>
+      <tr><td>Fox</td><td>Sweet Berries</td><td>16</td><td class="coin-bronze">3 Bronze</td></tr>
+      <tr><td>Axolotl</td><td>Kelp</td><td>16</td><td class="coin-bronze">3 Bronze</td></tr>
+      <tr><td>Parrot</td><td>Corn Block</td><td>16</td><td class="coin-bronze">3 Bronze</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Farm Animals (requires Husbandry research)</h3>
+  <table>
+    <thead><tr><th>Animal</th><th>Training Item</th><th>Qty</th><th>Coin Cost</th></tr></thead>
+    <tbody>
+      <tr><td>Cow</td><td>Durum Block</td><td>16</td><td class="coin-bronze">2 Bronze</td></tr>
+      <tr><td>Pig</td><td>Carrot</td><td>16</td><td class="coin-bronze">2 Bronze</td></tr>
+      <tr><td>Chicken</td><td>Wheat Seeds</td><td>16</td><td class="coin-bronze">2 Bronze</td></tr>
+      <tr><td>Sheep</td><td>Wheat</td><td>16</td><td class="coin-bronze">2 Bronze</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Pet Roles &amp; Working Blocks</h3>
+  <table>
+    <thead><tr><th>Role</th><th>Working Block</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Herding</td><td>Trough</td><td>Herds animals to the trough area</td></tr>
+      <tr><td>Land Scavenging</td><td>Mushroom Scavenge Base</td><td>Searches low-light areas for mushrooms</td></tr>
+      <tr><td>Vegetation Foraging</td><td>Feeder</td><td>Forages vegetation and foliage</td></tr>
+      <tr><td>Water Dredging</td><td>Dredger</td><td>Dredges shallow water for useful materials</td></tr>
+      <tr><td>Hauling</td><td>Hauler</td><td>Transports materials to warehouse</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== BURNOUT ========== -->
+<section id="burnout">
+  <h2>Citizen Burnout &amp; Vacation System</h2>
+  <p>Citizens with overworked (low) stats become susceptible to Resort advertising. When saturation exceeds the threshold, they take a vacation. Guest Services diagnoses the specific burned-out stat and delivers the correct remedy items.</p>
+
+  <table>
+    <thead><tr><th>Burned Stat</th><th>Symptom</th><th>Remedy Items</th></tr></thead>
+    <tbody>
+      <tr><td>Strength</td><td>"I feel weak all the time!"</td><td>Bar Nuts + Protein Shake</td></tr>
+      <tr><td>Adaptability</td><td>"I can't handle change very well!"</td><td>Veggie Juice + Smetana</td></tr>
+      <tr><td>Agility</td><td>"I feel like my reflexes are off!"</td><td>Fruit Juice + Napkin</td></tr>
+      <tr><td>Athletics</td><td>"I never get any exercise!"</td><td>Protein Shake + Napkin</td></tr>
+      <tr><td>Creativity</td><td>"I never have any new ideas."</td><td>Daiquiri + Book</td></tr>
+      <tr><td>Dexterity</td><td>"I am a bit clumsy!"</td><td>Bar Nuts + Cold Brew</td></tr>
+      <tr><td>Focus</td><td>"I am bad at slowing down and concentrating!"</td><td>Vanilla Milkshake + Napkin</td></tr>
+      <tr><td>Knowledge</td><td>"I don't know what's going on in the world."</td><td>Cold Brew + Book</td></tr>
+      <tr><td>Mana</td><td>"My connection to the mystic world is tenuous!"</td><td>Mystic Tea + Glow Berries</td></tr>
+      <tr><td>Stamina</td><td>"I get winded just tying my shoes!"</td><td>Energy Shake + Smetana</td></tr>
+    </tbody>
+  </table>
+
+  <h4>Thresholds (Configurable)</h4>
+  <table>
+    <thead><tr><th>Setting</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Susceptibility Threshold</td><td>Stat level 6</td><td>Below this, advertising works better</td></tr>
+      <tr><td>Immunity Threshold</td><td>Stat level 12</td><td>Above this, immune to advertising</td></tr>
+      <tr><td>Max Vacation Chance</td><td>20%</td><td>Maximum chance per advertising cycle</td></tr>
+      <tr><td>Healing per Vacation</td><td>+2 stat points</td><td>Stat points restored</td></tr>
+      <tr><td>Income per Vacation</td><td>1 Trade Coin</td><td>Revenue generated</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== ITEMS ========== -->
+<section id="items">
+  <h2>Items &amp; Currency</h2>
+
+  <h3>Currency</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Tier</th><th>Notes</th></tr></thead>
+    <tbody>
+      <tr><td class="coin-bronze">Trade Coin (Bronze)</td><td>Base</td><td>Minted at Marketplace L2+. Foundation of the economy.</td></tr>
+      <tr><td class="coin-gold">Gold Trade Coin</td><td>Mid</td><td>Crafted from Bronze coins. Used in mid-tier research.</td></tr>
+      <tr><td class="coin-diamond">Diamond Trade Coin</td><td>High</td><td>Crafted from Gold coins. Used in late-game research and rituals.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Food &amp; Drinks</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Daiquiri</td><td>Bartender</td></tr>
+      <tr><td>Veggie Juice</td><td>Bartender</td></tr>
+      <tr><td>Fruit Juice</td><td>Bartender</td></tr>
+      <tr><td>Protein Shake</td><td>Bartender</td></tr>
+      <tr><td>Bar Nuts</td><td>Bartender</td></tr>
+      <tr><td>Cold Brew</td><td>Bartender</td></tr>
+      <tr><td>Mystic Tea</td><td>Bartender</td></tr>
+      <tr><td>Vanilla Milkshake</td><td>Dairyworker</td></tr>
+      <tr><td>Energy Shake</td><td>Bartender</td></tr>
+      <tr><td>Ice Cream</td><td>Bartender</td></tr>
+      <tr><td>Smetana</td><td>Dairyworker</td></tr>
+      <tr><td>Dumplings and Cream</td><td>Dairyworker</td></tr>
+      <tr><td>Perpetual Stew</td><td>Stewmelier</td></tr>
+      <tr><td>Stew Seasoning</td><td>Wishing Well</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Crafting Materials</h3>
+  <table>
+    <thead><tr><th>Item</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Quartz Mortar</td><td>Wishing Well (Bronze coin + 64 Quartz)</td></tr>
+      <tr><td>Prismarine Mortar</td><td>Wishing Well (Gold coin + 64 Prismarine Shards)</td></tr>
+      <tr><td>End Mortar</td><td>Wishing Well (Diamond coin + 64 End Stone)</td></tr>
+      <tr><td>Copper Nugget</td><td>Crafting</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ========== CONFIG ========== -->
+<section id="config">
+  <h2>Configuration</h2>
+  <p>Config file: <code>config/mctradepost-common.toml</code></p>
+
+  <h3>Marketplace</h3>
+  <table>
+    <thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>tradeCoinValue</td><td>1000</td><td>Base value of a Trade Coin</td></tr>
+      <tr><td>economicScaling</td><td>0.0</td><td>Sales penalty/bonus (-1.0 to 1.0)</td></tr>
+      <tr><td>mintingLevel</td><td>2</td><td>Building level required for minting</td></tr>
+      <tr><td>shoppingChance</td><td>5</td><td>Visitor shopping probability per level</td></tr>
+      <tr><td>shoppingCooldown</td><td>400</td><td>Ticks before visitors reconsider</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Resort</h3>
+  <table>
+    <thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>vacationMaxChance</td><td>0.20</td><td>Max vacation chance per cycle</td></tr>
+      <tr><td>maxAdSaturation</td><td>12000</td><td>Advertising tolerance threshold</td></tr>
+      <tr><td>vacationHealing</td><td>2</td><td>Stat points restored per vacation</td></tr>
+      <tr><td>guestsPerResortLevel</td><td>2</td><td>Guest capacity per level</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Station &amp; Recycling</h3>
+  <table>
+    <thead><tr><th>Option</th><th>Default</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>baseTradeSpeed</td><td>4</td><td>Trade speed per station level</td></tr>
+      <tr><td>importsPerLevel</td><td>5</td><td>Imports allowed per station level</td></tr>
+      <tr><td>grindersPerLevel</td><td>2</td><td>Recycling slots per level</td></tr>
+      <tr><td>flawlessRecycling</td><td>50</td><td>Skill level for perfect recycling</td></tr>
+      <tr><td>petsPerLevel</td><td>2</td><td>Pet capacity per level</td></tr>
+      <tr><td>maxDistance</td><td>800</td><td>Max outpost distance from colony</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <p>Trade Post for MineColonies by <a href="https://github.com/armele/mctradepost-retro">armele</a> | Guide for <a href="index.html">Dynamic Odyssey</a> modpack</p>
+  <p>This guide is community-made and not affiliated with the mod author.</p>
+</footer>
+
+</body>
+</html>
