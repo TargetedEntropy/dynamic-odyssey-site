@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Dynamic Odyssey - NeoForge 1.21.1 Modpack</title>
-<meta name="description" content="Dynamic Odyssey: A massive NeoForge 1.21.1 modpack with 473 mods, 970 quests, and deep tech progression.">
+<meta name="description" content="Dynamic Odyssey: A massive NeoForge 1.21.1 modpack with 473 mods, 1130 quests, and deep tech progression.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -820,11 +820,11 @@ footer {
         <div class="hero-stat-label">Mods</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-number" data-count="970">0</div>
+        <div class="hero-stat-number" data-count="1130">0</div>
         <div class="hero-stat-label">Quests</div>
       </div>
       <div class="hero-stat">
-        <div class="hero-stat-number" data-count="23">0</div>
+        <div class="hero-stat-number" data-count="25">0</div>
         <div class="hero-stat-label">Quest Chapters</div>
       </div>
     </div>
@@ -984,7 +984,7 @@ footer {
 <section id="quests">
   <div class="container">
     <div class="section-header reveal">
-      <div class="section-eyebrow">970 Quests</div>
+      <div class="section-eyebrow">1130 Quests</div>
       <h2 class="section-title">Quest Chapters</h2>
       <p class="section-subtitle">Flexible progression &mdash; every chapter is unlocked from the start. Go anywhere, do anything.</p>
       <div class="divider"></div>
@@ -1129,31 +1129,37 @@ footer {
   <div class="footer-links">
     <a href="https://github.com/TargetedEntropy/do2">GitHub</a>
   </div>
-  <p class="footer-copy">NeoForge 1.21.1 &bull; v2.41.0 &bull; 473 Mods &bull; 970 Quests</p>
+  <p class="footer-copy">NeoForge 1.21.1 &bull; v2.41.0 &bull; 473 Mods &bull; 1130 Quests</p>
 </footer>
 
 <script>
 // ========== DATA ==========
 const QUESTS = [
-  { name: "Advanced Peripherals", count: 97, group: "Technology", color: "#00b894" },
-  { name: "Create", count: 84, group: "Technology", color: "#e17055" },
-  { name: "Mekanism", count: 84, group: "Technology", color: "#00cec9" },
-  { name: "Fine Dining", count: 72, group: "Let's Do", color: "#fdcb6e" },
-  { name: "Trinkets", count: 50, group: "Collectables", color: "#fd79a8" },
-  { name: "Modern Industrialization", count: 44, group: "Technology", color: "#fdcb6e" },
-  { name: "Saplings", count: 36, group: "Collectables", color: "#00b894" },
-  { name: "Applied Energistics 2", count: 25, group: "Storage", color: "#a29bfe" },
-  { name: "Mob Heads & Spawn Eggs", count: 25, group: "Collectables", color: "#e17055" },
-  { name: "Tom's Simple Storage", count: 22, group: "Storage", color: "#6c5ce7" },
-  { name: "Spawner Manipulation", count: 18, group: "Quick Guides", color: "#636e72" },
-  { name: "Getting Started", count: 15, group: "Quick Guides", color: "#dfe6e9" },
-  { name: "Powah", count: 10, group: "Technology", color: "#fd79a8" },
-  { name: "Music Discs", count: 4, group: "Collectables", color: "#fdcb6e" },
-  { name: "Vines and Wines", count: 44, group: "Let's Do", color: "#6c5ce7" },
-  { name: "Oktoberfest", count: 32, group: "Let's Do", color: "#e17055" },
-  { name: "Margaritaville", count: 28, group: "Let's Do", color: "#00cec9" },
+  { name: "Mob Heads & Spawn Eggs", count: 140, group: "Collectables", color: "#fd79a8" },
+  { name: "Spectrum 2", count: 88, group: "Magic", color: "#6c5ce7" },
+  { name: "Spectrum", count: 77, group: "Magic", color: "#6c5ce7" },
+  { name: "MineColonies", count: 76, group: "Colony", color: "#00b894" },
+  { name: "Artifacts & Relics", count: 68, group: "Collectables", color: "#fd79a8" },
+  { name: "Croptopia", count: 62, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Create", count: 60, group: "Technology", color: "#e17055" },
+  { name: "Spectrum 3", count: 56, group: "Magic", color: "#6c5ce7" },
+  { name: "Saplings", count: 52, group: "Collectables", color: "#fd79a8" },
+  { name: "Deeper & Darker", count: 50, group: "Collectables", color: "#fd79a8" },
+  { name: "Trinkets", count: 44, group: "Collectables", color: "#fd79a8" },
+  { name: "Vines & Wines", count: 44, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Mekanism", count: 40, group: "Technology", color: "#e17055" },
+  { name: "Advanced Peripherals", count: 38, group: "Technology", color: "#e17055" },
+  { name: "Fine Dining", count: 34, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Oktoberfest", count: 32, group: "Let's Do", color: "#fdcb6e" },
+  { name: "Margaritaville", count: 28, group: "Let's Do", color: "#fdcb6e" },
   { name: "Cheesed", count: 23, group: "Let's Do", color: "#fdcb6e" },
-  { name: "Spectrum", count: 31, group: "Magic", color: "#a29bfe" },
+  { name: "Powah", count: 22, group: "Technology", color: "#e17055" },
+  { name: "Modern Industrialization", count: 21, group: "Technology", color: "#e17055" },
+  { name: "Applied Energistics 2", count: 20, group: "Storage", color: "#a29bfe" },
+  { name: "Tom's Simple Storage", count: 18, group: "Storage", color: "#a29bfe" },
+  { name: "Music Discs", count: 18, group: "Collectables", color: "#fd79a8" },
+  { name: "Spawner Manipulation", count: 13, group: "Quick Guides", color: "#74b9ff" },
+  { name: "Getting Started", count: 6, group: "Guides", color: "#74b9ff" },
 ];
 
 
